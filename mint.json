@@ -33,18 +33,6 @@
       "icon": "slack",
       "iconType": "solid",
       "url": "https://locai-workspace.slack.com/archives/C07GY8L0NPK"
-    },
-    {
-      "name": "Contribute",
-      "icon": "code-pull-request",
-      "iconType": "solid",
-      "url": "https://github.com/LocAI1/iam-service/pulls"
-    },
-    {
-      "name": "Feature Request / Issues",
-      "icon": "scrubber",
-      "iconType": "regular",
-      "url": "https://github.com/LocAI1/iam-service/issues"
     }
   ],
   "tabs": [
@@ -171,9 +159,5 @@
         }
       ]
     }
-  ],
-  "footerSocials": {
-    "linkedin": "https://www.linkedin.com/company/locai",
-    "github": "https://github.com/LocAI1/iam-service"
-  }
+  ]
 }

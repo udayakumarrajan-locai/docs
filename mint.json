@@ -53,11 +53,7 @@
       "url": "/"
     },
     {
-      "name": "API Tutorials",
-      "url": "api-tutorials"
-    },
-    {
-      "name": "Libraries",
+      "name": "SDK (beta)",
       "url": "libraries"
     },
     {
@@ -76,106 +72,7 @@
       ]
     },
     {
-      "group": "API Tutorials",
-      "pages": [
-        "api-tutorials/getting-started",
-        "api-tutorials/email-template-setup",
-        "api-tutorials/basic-flows",
-        {
-          "group": "Unauthenticated Flows",
-          "icon": "lock-open",
-          "iconType": "solid",
-          "pages": [
-            "api-tutorials/unauthenticated-flows/sign-up-by-username-password",
-            "api-tutorials/unauthenticated-flows/sign-in-by-username-password",
-            "api-tutorials/unauthenticated-flows/forgot-password",
-            "api-tutorials/unauthenticated-flows/generate-machine-user-token"
-          ]
-        },
-        {
-          "group": "Authenticated Flows",
-          "icon": "lock",
-          "iconType": "solid",
-          "pages": [
-            "api-tutorials/authenticated-flows/verify-email",
-            "api-tutorials/authenticated-flows/get-user-info",
-            "api-tutorials/authenticated-flows/reset-password",
-            "api-tutorials/authenticated-flows/update-user-info",
-            "api-tutorials/authenticated-flows/token-introspection",
-            "api-tutorials/authenticated-flows/log-out-user",
-            {
-              "group": "Machine User",
-              "icon": "robot",
-              "pages": [
-                "api-tutorials/authenticated-flows/create-machine-user",
-                "api-tutorials/unauthenticated-flows/jwks-endpoint"
-              ]
-            }
-          ]
-        },
-        {
-          "group": "Social Media Flows",
-          "icon": "bolt",
-          "iconType": "solid",
-          "pages": [
-            "api-tutorials/social-media-flows/introduction",
-            {
-              "group": "Setup OAuth Providers",
-              "icon": "wrench",
-              "pages": [
-                "api-tutorials/social-media-flows/oauth-providers/google-idp",
-                "api-tutorials/social-media-flows/oauth-providers/azure-idp"
-              ]
-            },
-            "api-tutorials/social-media-flows/fetch-app-metadata",
-            "api-tutorials/social-media-flows/create-intent",
-            "api-tutorials/social-media-flows/validate-intent"
-          ]
-        },
-        {
-          "group": "Multi Tenancy",
-          "icon": "building",
-          "iconType": "solid",
-          "pages": [
-            "api-tutorials/multi-tenancy/introduction",
-            {
-              "group": "Invite Based Flows",
-              "icon": "user-plus",
-              "iconType": "solid",
-              "pages": [
-                "api-tutorials/multi-tenancy/invite-based/setup-new-organization",
-                "api-tutorials/multi-tenancy/invite-based/onboard-org-manager",
-                "api-tutorials/multi-tenancy/invite-based/assign-or-invite-user-with-custom-roles"
-              ]
-            }, 
-            "api-tutorials/multi-tenancy/get-user-roles",
-            "api-tutorials/multi-tenancy/introspection",
-            {
-              "group": "Organization Management",
-              "icon": "robot",
-              "iconType": "solid",
-              "pages": [
-                "api-tutorials/multi-tenancy/machine-user/introduction",
-                "api-tutorials/multi-tenancy/machine-user/get-all-organization",
-                "api-tutorials/multi-tenancy/machine-user/get-all-users",
-                
-                "api-tutorials/multi-tenancy/machine-user/get-all-users-of-organization",
-                "api-tutorials/multi-tenancy/organization-management/search-users-of-organization",
-                "api-tutorials/multi-tenancy/machine-user/add-user-to-org",
-                "api-tutorials/multi-tenancy/machine-user/delete-user-from-organization",
-                "api-tutorials/multi-tenancy/machine-user/delete-a-user",
-                "api-tutorials/multi-tenancy/organization-management/get-org-details",
-                "api-tutorials/multi-tenancy/organization-management/get-org-events",
-                "api-tutorials/multi-tenancy/organization-management/update-org-details"
-
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "group": "Libraries",
+      "group": "SDK (beta)",
       "pages": [
         "libraries/javascript",
         {

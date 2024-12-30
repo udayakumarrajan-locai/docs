@@ -1,0 +1,30 @@
+---
+title: Introduction
+icon: rocket
+---
+ IAM system is designed to provide secure, scalable, and user-friendly access management for modern applications.
+ It includes a comprehensive set of features such as user and group management, multi-factor authentication,
+ session control, and protocol support for seamless integrations. Additional capabilities like multi-tenancy,
+ LDAP/AD connectivity, SCIM provisioning, and notification services ensure flexibility and compliance across
+ diverse environments. With a focus on automation, security, and customization,
+ our IAM solution empowers developers to build secure, user-centric applications with ease.
+<CardGroup cols={1}>
+  <Card title="Authentication with username and password" icon="lock" href="/api-tutorials/unauthenticated-flows/sign-up-by-username-password">
+    Our API provides secure authentication with username and password, following industry best practices. We use modern encryption, secure protocols, password hashing, brute-force protection, and secure session management to ensure the highest security standards.
+  </Card>
+  <Card title="OAuth support" icon="google" href="/api-tutorials/social-media-flows/introduction">
+    Support for social media authentication using OAuth, including Google authentication, allowing users to sign in with their existing Google accounts.
+  </Card>
+  <Card title="Flexible session management" icon="cookie" href="/api-tutorials/basic-flows">
+    Support for flexible authentication using cookies and authentication headers, allowing seamless integration with your existing authentication mechanisms. With a focus on security, our session management is designed to meet the requirements of production-grade applications.
+  </Card>
+  <Card title="Multi Tenancy" icon="buildings" href="/api-tutorials/multi-tenancy/introduction">
+    Supports multi-tenant platforms with seamless support for multiple organizations, ensuring robust data isolation between tenants. Implements advanced Role-Based Access Control (RBAC) with custom claims, enabling granular permissions and secure resource management across your entire SaaS ecosystem.
+  </Card>
+  <Card title="CQRS" icon="square-5" href="/">
+    Our API follows the Command Query Responsibility Segregation (CQRS) pattern, which separates the handling of queries and commands into distinct models, allowing for better scalability and high availability. Queries (read operations) and commands (write operations) are processed independently, enabling efficient resource utilization and optimized performance.
+  </Card>
+  <Card title="Event Sourcing" icon="timeline" href="/">
+    Our authentication service leverages Event Sourcing, a powerful pattern that captures all state changes as immutable events. This approach allows us to observe and reconstruct the entire authentication history, enabling us to trace and analyze user activities, detect anomalies, and recover from any state, ensuring data integrity and auditability. With Event Sourcing, we can replay events to reconstruct the authentication data at any given point in time, providing a robust foundation for security and compliance.
+  </Card>
+</CardGroup>

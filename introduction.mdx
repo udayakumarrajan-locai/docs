@@ -1,30 +1,50 @@
 ---
-title: Introduction
-icon: rocket
+title: High level design & Workflow
+icon: city
 ---
- IAM system is designed to provide secure, scalable, and user-friendly access management for modern applications.
- It includes a comprehensive set of features such as user and group management, multi-factor authentication,
- session control, and protocol support for seamless integrations. Additional capabilities like multi-tenancy,
- LDAP/AD connectivity, SCIM provisioning, and notification services ensure flexibility and compliance across
- diverse environments. With a focus on automation, security, and customization,
- our IAM solution empowers developers to build secure, user-centric applications with ease.
-<CardGroup cols={1}>
-  <Card title="Authentication with username and password" icon="lock" href="/api-tutorials/unauthenticated-flows/sign-up-by-username-password">
-    Our API provides secure authentication with username and password, following industry best practices. We use modern encryption, secure protocols, password hashing, brute-force protection, and secure session management to ensure the highest security standards.
-  </Card>
-  <Card title="OAuth support" icon="google" href="/api-tutorials/social-media-flows/introduction">
-    Support for social media authentication using OAuth, including Google authentication, allowing users to sign in with their existing Google accounts.
-  </Card>
-  <Card title="Flexible session management" icon="cookie" href="/api-tutorials/basic-flows">
-    Support for flexible authentication using cookies and authentication headers, allowing seamless integration with your existing authentication mechanisms. With a focus on security, our session management is designed to meet the requirements of production-grade applications.
-  </Card>
-  <Card title="Multi Tenancy" icon="buildings" href="/api-tutorials/multi-tenancy/introduction">
-    Supports multi-tenant platforms with seamless support for multiple organizations, ensuring robust data isolation between tenants. Implements advanced Role-Based Access Control (RBAC) with custom claims, enabling granular permissions and secure resource management across your entire SaaS ecosystem.
-  </Card>
-  <Card title="CQRS" icon="square-5" href="/">
-    Our API follows the Command Query Responsibility Segregation (CQRS) pattern, which separates the handling of queries and commands into distinct models, allowing for better scalability and high availability. Queries (read operations) and commands (write operations) are processed independently, enabling efficient resource utilization and optimized performance.
-  </Card>
-  <Card title="Event Sourcing" icon="timeline" href="/">
-    Our authentication service leverages Event Sourcing, a powerful pattern that captures all state changes as immutable events. This approach allows us to observe and reconstruct the entire authentication history, enabling us to trace and analyze user activities, detect anomalies, and recover from any state, ensuring data integrity and auditability. With Event Sourcing, we can replay events to reconstruct the authentication data at any given point in time, providing a robust foundation for security and compliance.
-  </Card>
-</CardGroup>
+---
+High level design
+---
+The Identity and Access Management (IAM) system ensures secure and seamless user authentication and authorization.
+Key components include:
+<ul>
+    <li><b>Authentication:</b> Powered by IAM services for user identity verification, multi-factor authentication, and session management.</li>
+    <li><b>Authorization:</b> Utilizes Cerbos for policy-driven, fine-grained access control.</li>
+    <li><b>Scalability:</b> Deployed on Kubernetes for high availability, fault tolerance, and scalability.</li>
+    <li><b>Extensibility:</b> Designed as a SaaS platform, supporting integrations with third-party services and APIs.</li>
+</ul>
+<Frame caption="Platform - IAM Service System Architecture">
+    <img src="/images/IAM_HLD.png" />
+</Frame>
+
+---
+Multitenancy Architecture
+---
+The IAM system is designed to support multi-tenancy, enabling secure and isolated management of identities and access across multiple tenants. Key architectural elements include:
+<ul>
+    <li><b>Tenant Isolation:</b> Logical data separation via database schemas or row-level security ensures secure and isolated tenant environments.</li>
+    <li><b>Authentication:</b> Supports tenant-specific authentication flows and identity provider configurations using IAM.</li>
+    <li><b>Authorization:</b> Leverages Cerbos for fine-grained, tenant-aware access control policies.</li>
+    <li><b>Centralized Management:</b> Admin portal enables onboarding, policy configuration, and usage monitoring for multiple tenants.</li>
+    <li><b>Scalability:</b> Kubernetes ensures horizontal scaling and high availability for diverse tenant workloads.</li>
+    <li><b>Customizability:</b> Tenants can customize workflows, branding, and access policies as per their needs.</li>
+</ul>
+<Frame caption="Multitenancy System Architecture ">
+    <img src="/images/multitenacy.png" />
+</Frame>
+
+---
+IAM Workflow
+---
+The IAM workflow ensures secure and efficient management of user identities, authentication, and access control within the platform. It is designed to streamline user operations while maintaining robust security and compliance.
+<ul>
+    <li><b>User Onboarding:</b> Facilitates user registration, profile creation, and initial role assignment.</li>
+    <li><b>Authentication:</b> Implements multi-factor authentication and single sign-on (SSO) using internal or third party services.</li>
+    <li><b>Authorization:</b>Enforces fine-grained access control policies via Cerbos, supporting role-based and attribute-based permissions.</li>
+    <li><b>Session Management:</b> Manages secure user sessions with token-based mechanisms for authentication and access continuity.</li>
+    <li><b>Audit and Monitoring:</b> Tracks user activities, access logs, and system events for compliance and security.</li>
+    <li><b>User Offboarding:</b>Ensures proper account deactivation or deletion, revoking roles and permissions as necessary.</li>
+</ul>
+<Frame caption="IAM Workflow">
+    <img src="/images/workflow.png" />
+</Frame>

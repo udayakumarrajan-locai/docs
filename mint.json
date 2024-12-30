@@ -25,7 +25,7 @@
   "topbarCtaButton": {
     "name": "API Playground",
     "arrow": true,
-    "url": "https://dev-iam.razi.ai/docs"
+    "url": "https://iam.platform.dev.ai71services.ai/docs"
   },
   "anchors": [
     {
@@ -49,7 +49,7 @@
   ],
   "tabs": [
     {
-      "name": "Features",
+      "name": "Introduction",
       "url": "/"
     },
     {
@@ -70,6 +70,7 @@
     {
       "group": "",
       "pages": [
+        "introduction",
         "current-features",
         "roadmap"
       ]

@@ -1,0 +1,107 @@
+---
+sidebar_position: 0
+title: <RequestCodeForm />
+---
+
+import InputFieldProps from '/snippets/react/composite-elements/input-field-props.mdx';
+import ErrorMessage from '/snippets/react/composite-elements/error-message.mdx';
+import SubmitButton from '/snippets/react/composite-elements/submit-button.mdx';
+
+## Overview
+
+**RequestCodeForm** is a collection of components designed to facilitate the creation of a custom forgot password flow.
+It provides a set of components that encapsulate the business logic for handling the request code form, allowing
+users to easily customize the layout, styles, labels, placeholders, and button texts.
+
+## Example Usage
+
+```typescript custom-request-code-form.tsx
+import { useState } from 'react';
+
+import { HttpError } from '@locai1/iam-javascript';
+import { ForgotPasswordElements } from '@locai1/iam-react/elements';
+
+const { RequestCodeForm } = ForgotPasswordElements;
+
+const CustomRequestCodeForm = ({ onComplete, resetPasswordUrl }) => {
+  const [email, setEmail] = useState<string | undefined>();
+
+  const handleComplete = (value: string) => {
+    setEmail(value);
+    console.log(`Forgot password code for email ${value} requested`);
+  };
+
+  const handleError = (error: HttpError | Error) => {
+    console.error('Request password error ', error.message);
+  };
+
+  return (
+    <RequestCodeForm.Root
+      onComplete={handleComplete}
+      onError={handleError}
+      resetPasswordUrl={resetPasswordUrl}
+      email={email}
+    >
+      <RequestCodeForm.EmailInput
+        label="Email"
+        placeholder="Enter your email"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <RequestCodeForm.ErrorMessage
+        className="custom-error-class"
+      />
+      <RequestCodeForm.SubmitButton
+        text="Request Code"
+        className="custom-button-class"
+      />
+    </RequestCodeForm.Root>
+  );
+};
+```
+
+### RequestCodeForm.Root
+
+The root component of request code form. It encapsulates business logic for handling code requesting process.
+
+<Note>
+  **RequestCodeForm** is responsible only for requesting code. You need to implement a **UpdatePasswordForm**
+  (from **ForgotPasswordElements**) that handles password updating process.
+</Note>
+
+#### Props
+
+<ResponseField name="children" type="ReactNode">
+  React elements to be rendered inside the form. **RequestCodeForm** elements should be rendered as children of **RequestCodeForm.Root**.
+</ResponseField>
+
+<ResponseField name="onComplete" type="callback" required>
+  A callback function that is called when code is successfully requested.
+</ResponseField>
+
+<ResponseField name="onError" type="callback">
+  A callback function that is called when error happened during the sign-in process.
+</ResponseField>
+
+<ResponseField name="email" type="string" >
+  Default email value for the email input field.
+</ResponseField>
+
+<ResponseField name="resetPasswordUrl" type="string" required>
+  Reset password url used to redirect user to reset password page from email.
+  It should contain a placeholder for the reset password code.
+</ResponseField>
+
+### RequestCodeForm.EmailInput
+
+Field for email of user's for which a password reset code will be requested.
+
+<InputFieldProps />
+
+### RequestCodeForm.ErrorMessage
+
+<ErrorMessage />
+
+### RequestCodeForm.SubmitButton
+
+<SubmitButton />

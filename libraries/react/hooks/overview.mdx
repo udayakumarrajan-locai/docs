@@ -1,0 +1,34 @@
+---
+sidebar_position: 0
+title: Overview
+---
+
+This documentation outlines the hooks used in [iam-react](https://github.com/LocAI1/iam-javascript-sdk/pkgs/npm/iam-react) package.
+These hooks simplify the creation of custom authentication flows by encapsulating the business logic and offering reusable functions.
+For each hook, you can adjust the parameters and callbacks to fit your needs.
+
+## Basic Hooks
+
+- **useSession**: Access the current session and user details.
+- **useSignIn**: Handle the sign-in process using email and password.
+- **useSignUp**: Handle the sign-up process.
+- **useSignOut**: Handle the sign-out process.
+- **useRequestForgotPasswordCodeByEmail**: Request a forgot password code via email.
+- **useUpdatePasswordWithCode**: Update a user's password using a verification code.
+- **useVerifyUserEmail**: Handle the email verification process using a verification code.
+
+## OAuth Hooks
+
+- **useAppMetadata**: Fetch and manage the application metadata.
+- **useCreateIdentityProviderIntent**: Create an identity provider intent.
+- **useValidateIdentityProviderIntent**: Validate an identity provider intent.
+
+## User Details Hooks
+
+- **useUserDetails**: Fetch and manage the user details.
+- **useUpdateUserProfile**: Handle the process of updating a user's profile.
+- **useUpdateUserPasswordWithCurrentPassword**: Update a user's password using their current password.
+
+## Other Hooks
+
+- **useChangeLanguage**: Change the application's language.

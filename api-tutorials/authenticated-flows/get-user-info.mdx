@@ -1,0 +1,45 @@
+---
+sidebar_position: 2
+title: Fetch User Information
+icon: bars-progress
+iconType: solid
+---
+
+import LoggedInWarning from "/snippets/_logged-in-warning.mdx";
+
+
+<LoggedInWarning />
+
+In order to fetch the user information, the below endpoint can be used
+
+```bash
+curl --request GET \
+  --url https://dev-iam.razi.ai/v1/authentication/users/__USERID__ \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'X-App-Name: '
+```
+
+<Note>
+In order to get the metadata you must pass query param `?includeMetadata=true`
+</Note>
+
+This API call will return a 200 OK with below response:
+
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "phoneNumber": "+971111111111",
+  "metadata": {
+    "key": "value"
+  },
+  "email": "john.doe@gmail.com",
+  "isEmailVerified": true,
+  "isPhoneVerified": true,
+  "userState": "ACTIVE",
+  "displayName": "John Doe"
+}
+```
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#tag/authentication/GET/v1/authentication/users/{userId})
+</Tip>

@@ -1,0 +1,24 @@
+---
+sidebar_position: 4
+title: Token Introspection
+icon: shield-check
+iconType: solid
+---
+
+import LoggedInWarning from "/snippets/_logged-in-warning.mdx";
+
+<LoggedInWarning />
+
+Since we use opaque token in our IAM Service, we follow approach recommended by [Auth0](https://auth0.com/docs/secure/tokens/access-tokens#opaque-access-tokens).
+
+```bash
+curl --request GET \
+  --url https://dev-iam.razi.ai/v1/authentication/users/me \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'X-App-Name: '
+```
+The above call will return the `userid` and `state` if the token is valid.
+
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#/tag/authentication/GET/v1/authentication/users/me)
+</Tip>

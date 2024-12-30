@@ -1,0 +1,60 @@
+---
+sidebar_position: 2
+title: Add User to Organization
+icon: user-plus
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_role-based-human-machine-logged-in-warning.mdx";
+
+
+<UserTypeLoggedInWarning />
+
+
+To add a user to an organization, you need to make a POST request to the following endpoint:
+
+## Headers
+<Steps>
+
+    <Step title="x-iam-orgid">
+        Specify the Organization Id here.
+        **Example**: 281185056586736799
+    </Step>
+</Steps>
+
+```bash
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations/users/21892002 \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --header 'X-Iam-Orgid: ' \
+  --data '{
+  "roles": [
+    "reader",
+    "writer"
+  ]
+}'
+```
+<Note>
+
+    Please note that the roles array must contain valid roles which are available for the organization.
+    To add or update roles for the organization , you can refer [Update Roles and Permissions of organization](https://dev-iam.razi.ai/docs#tag/authorization/PUT/v1/authorization/organizations/{orgId}/roles) endpoint.
+
+</Note>
+
+
+Upon successful request, the user will be added to the specified organization and the response will be similar to the below:
+
+```json
+{
+  "message": "User 281435913177801305 added to 281185056586736799 as reader, writer"
+}
+```
+
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/POST/v1/authorization/organizations/users/{userId})
+</Tip>
+
+

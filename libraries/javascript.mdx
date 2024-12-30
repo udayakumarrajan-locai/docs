@@ -1,0 +1,168 @@
+---
+sidebar_position: 0
+title: JavaScript SDK
+icon: js
+iconType: solid
+---
+import TeamChannels from "/snippets/_team-channels.mdx"
+
+<Note>
+**Related Links**
+- [Github Repo](https://github.com/LocAI1/iam-javascript-sdk/tree/main/packages/iam-javascript)
+- [Github Package](https://github.com/LocAI1/iam-javascript-sdk/pkgs/npm/iam-javascript)
+</Note>
+
+This SDK provides a set of JavaScript utilities for interacting with the IAM backend, offering functions and helpers to facilitate authentication, authorization, and user management processes.
+
+
+## Pre-requisites
+Before installing this package, make sure to follow below steps:
+<Steps>
+<Step title="Request repository access to the Packages" >
+Reach out to IAM team to request access to the Packages repository:
+<TeamChannels />
+</Step>
+<Step title="Generate a personal access token">
+    Generate a personal access token with the following scopes:<br/><Icon icon="square-check" /> **repo**
+    <br/><Icon icon="square-check" /> **read:packages**
+</Step>
+<Step title="Create an .npmrc file">
+
+Create an .npmrc file and add below code:
+```bash
+@locai1:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_PERSONAL_ACCESS_TOKEN
+```
+</Step>
+</Steps>
+
+
+
+## Install
+
+Download the package using your preferred package manager:
+
+<CodeGroup>
+```bash pnpm
+pnpm install @locai1/iam-javascript
+````
+
+```bash npm
+npm install @locai1/iam-javascript
+````
+
+```bash yarn
+yarn add @locai1/iam-javascript
+````
+</CodeGroup>
+
+## Quickstart
+
+<Steps>
+<Step title="Import the AuthService class">
+
+```typescript
+import { AuthService, AuthServiceEnv } from '@locai1/iam-javascript';
+```
+
+</Step>
+
+<Step title="Initialize the AuthService">
+AuthService can be initialized in 2 ways:
+1. Using the AuthService class directly passing in the env:
+
+```typescript
+const authService = new AuthService({
+    env: AuthServiceEnv.Dev,
+    iamAppName: 'iqraa',
+});
+```
+<Check>We recommend using this method as it will automatically fetch the base url mapped to the env and allows us to abstract the api urls.</Check>
+2. Using the AuthService class directly with base url:
+
+```typescript
+const authService = new AuthService({
+    iamBaseUrl: 'http://dev-iam.razi.ai',
+    iamAppName: 'specter',
+});
+```
+</Step>
+
+<Step title="Call methods on the AuthService instance">
+After instantiating the service, you can call methods on it to perform various operations, such as signing in, signing up, and fetching user information.
+
+```typescript
+async function signInAndGetUserInfo(){
+    const response = await authService.signInByEmailPassword({
+        email: 'johndoe@test.com',
+        password: 'testJohndoe@12AB'
+    });
+    return authService.getUserDetails(response)
+}
+
+await signInAndGetUserInfo();
+```
+
+</Step>
+</Steps>
+
+
+## API Methods
+
+- **`getAppMetadata`**: Fetches metadata for the app.
+- **`getUserDetails`**: Retrieves detailed information for a user based on session data.
+- **`signUpByEmailPassword`**: Registers a new user using email and password.
+- **`signInByEmailPassword`**: Authenticates a user using email and password.
+- **`signOut`**: Signs out a user based on session data.
+- **`requestForgotPasswordCodeByEmail`**: Requests a password reset code to be sent to a user's email.
+- **`requestUserVerificationEmail`**: Requests a user verification email to be sent to a user's email using user ID.
+- **`updateUserPasswordUsingCurrentPassword`**: Updates a user's password using current password.
+- **`updateUserPasswordByCode`**: Updates a user's password using a verification code sent to email.
+- **`verifyUserEmailByCode`**: Verifies a user's email using a verification code.
+- **`getOrganizationMetadata`**: OAuth. Fetches metadata for the organization based on the provided organization ID.
+- **`createIdentityProviderIntent`**: OAuth. Creates an authentication intent for the specified identity provider.
+- **`validateIdentityProviderIntent`**: OAuth. Validates the authentication intent and returns the session data.
+- **`introspectOpaqueToken`**: Introspection. Can be used to check the session token of the user, also it returns user id of logged in user.
+- **`generateMachineuserAccessToken`**: Generates an access token for a machine
+  user using client ID and client secret.
+- **`getUserRoles`**: Retrieves the roles and permissions of a user within all
+  the organizations.
+- **`getOrganizations`**: Fetches a paginated list of all organizations.
+- **`addUserToOrganization`**: Adds a user to an organization with specified
+  roles.
+- **`removeUserFromOrganization`**: Removes a user from an organization.
+- **`getOrganizationUsers`**: Retrieves a paginated list of all users
+  within an organization.
+- **`getUsers`**: Fetches a paginated list of all users.
+- **`deleteUser`**: Deletes a user from the system.
+- **`getJwks`**: Retrieves the well known JWKS from the IAM service.
+- **`introspectMachineJwt`**: Introspects a machine JWT token, it will throw
+  corresponding error related JWT as documenting
+  [here](https://www.npmjs.com/package/jsonwebtoken#tokenexpirederror). If token
+  is valid it will return the payload.
+## Error Handling
+
+Errors are handled using the `HttpError` class. Each method throws an `HttpError` when the API response is not successful. The `HttpError` includes the status code and error message.
+
+```typescript
+import { AuthService, AuthServiceEnv } from '@locai1/iam-javascript';
+
+const authService = new AuthService({
+    env: AuthServiceEnv.Dev,
+    iamAppName: 'iqraa',
+});
+
+try {
+  const userDetails = await authService.getUserDetails({
+      userId: 'user-id',
+      sessionToken: 'opaquetoken',
+      includeMetadata: true
+  });
+} catch (error) {
+  if (error instanceof HttpError) {
+    console.error(`Error (${error.statusCode}): ${error.message}`);
+  } else {
+    console.error('Unexpected error:', error);
+  }
+}
+```

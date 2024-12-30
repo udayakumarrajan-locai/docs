@@ -1,0 +1,138 @@
+---
+sidebar_position: 0
+title: useVerifyUserEmail()
+---
+
+import HttpErrorCallbackType from '/snippets/react/types/http-error-callback.mdx';
+
+## Overview
+
+**useVerifyUserEmail** hook is used to handle the email verification process using a verification code.
+It leverages the react-query library to manage the asynchronous operation and provides error handling and success
+callbacks.
+
+## Example Usage
+
+```typescript verify-email-component.tsx
+import { useState } from 'react';
+
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
+import { Button } from '@/components/ui/button';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+import { HttpError } from '@locai1/iam-javascript';
+import { useVerifyUserEmail, useSession } from '@locai1/iam-react';
+
+const formSchema = z.object({
+  code: z.string().min(6, {
+    message: "Your one-time password must be 6 characters.",
+  }),
+})
+
+type FormSchemaType = z.infer<typeof formSchema>;
+
+type VerifyFormProps = {
+  onComplete: () => void;
+  email: string;
+};
+
+export const VerifyEmailComponent = ({ onComplete, email }: VerifyFormProps) => {
+  const { session } = useSession();
+  const [error, setError] = useState<HttpError>();
+
+  const { verifyUserEmail } = useVerifyUserEmail({
+    onError: setError,
+    onSuccess: onComplete,
+  });
+
+  const form = useForm<FormSchemaType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      code: "",
+    },
+  });
+
+  const handleSubmit = form.handleSubmit(async (values: FormSchemaType) => {
+    if (!session) {
+      return;
+    }
+    verifyUserEmail({
+      userId: session.userId,
+      verificationCode: values.code,
+    });
+  });
+
+  return (
+    <Form {...form}>
+      <form onSubmit={handleSubmit}>
+        <FormField
+          control={form.control}
+          name="code"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <InputOTP
+                  maxLength={6}
+                  pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                  {...field}
+                >
+                  <InputOTPGroup>
+                    <InputOTPSlot index={0} />
+                    <InputOTPSlot index={1} />
+                    <InputOTPSlot index={2} />
+                    <InputOTPSlot index={3} />
+                    <InputOTPSlot index={4} />
+                    <InputOTPSlot index={5} />
+                  </InputOTPGroup>
+                </InputOTP>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {error?.message}
+        <Button type="submit">
+          Create an account
+        </Button>
+      </form>
+    </Form>
+  );
+};
+```
+
+## Parameters
+
+<ResponseField name="onSuccess" type="() => void" required>
+  callback function that is called when the email verification process is successful.
+  <SessionType />
+</ResponseField>
+
+<ResponseField name="onError" type="HttpErrorCallback" required>
+  callback function that is called when an error occurs during the email verification process.
+  <HttpErrorCallbackType />
+</ResponseField>
+
+## Returns
+
+<ResponseField name="verifyUserEmail" type="(payload: {
+  userId: string;
+  verificationCode: string;
+}) => void">
+  function that triggers the email verification process with the provided verification code.
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the email verification process is currently in progress.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred during the email verification process.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error | null">
+  error object if an error occurred during the email verification process.
+</ResponseField>

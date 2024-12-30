@@ -1,0 +1,80 @@
+---
+sidebar_position: 0
+title: useUserDetails()
+---
+
+import UserDetailsType from '/snippets/react/types/user-details.mdx';
+import HttpErrorCallbackType from '/snippets/react/types/http-error-callback.mdx';
+
+## Overview
+
+**useUserDetails** hook is used to fetch and manage the user details. It leverages the react-query
+library to handle the asynchronous operation and provides error handling and success callbacks.
+
+## Example Usage
+
+```typescript user-details-component.tsx
+import { useUserDetails } from '@locai1/iam-react';
+
+const UserDetailsComponent = () => {
+  const handleSuccess = (userDetails) => {
+    // Handle successful fetch
+  };
+
+  const handleError = (error) => {
+    // Handle fetch error
+  };
+
+  const { data: userDetails, isLoading, error } = useUserDetails({
+    onError: handleError,
+    onSuccess: handleSuccess,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  return (
+    <div>
+      <h2>User Details</h2>
+      <p>Name: {userDetails?.name}</p>
+      <p>Email: {userDetails?.email}</p>
+    </div>
+  );
+};
+```
+
+## Parameters
+
+<ResponseField name="onSuccess" type="(userDetails: UserDetails | undefined) => void" required>
+  callback function that is called when the fetching process is successful.
+  It receives the **UserDetails** object as an argument.
+  <UserDetailsType />
+</ResponseField>
+
+<ResponseField name="onError" type="HttpErrorCallback" required>
+  callback function that is called when an error occurs during the sign-up process.
+  <HttpErrorCallbackType />
+</ResponseField>
+
+## Returns
+
+<ResponseField name="data" type="userDetails">
+  user details object if the fetching process is successful.
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the fetching process is currently in progress.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred during the fetching process.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error">
+  error object if an error occurred during the fetching process.
+</ResponseField>

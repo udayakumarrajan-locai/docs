@@ -1,0 +1,25 @@
+---
+sidebar_position: 6
+title: Get User Roles and permissions
+icon: list-check
+iconType: solid
+---
+
+To retrieve all the roles and permissions associated with a user across multiple organizations, the recommended flow is to use below endpoint
+
+```bash
+curl --request GET \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations/user/21892002/roles \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'X-App-Name: '
+```
+
+The above endpoint will return a response containing all the roles and permissions across all the organizations
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/GET/v1/authorization/organizations/user/{userId}/roles)
+</Tip>
+
+
+
+
+

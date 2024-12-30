@@ -1,0 +1,48 @@
+---
+sidebar_position: 5
+title: Permission Introspection
+description: Learn how to check user permissions for specific actions in your organization.
+icon: file-check
+iconType: solid
+---
+
+
+## Overview
+
+The Permission Introspection API allows you to verify if a user has the necessary permissions to perform specific actions within an organization. This is crucial for implementing fine-grained access control in your application.
+
+
+### Check User Permissions
+
+
+In order to check if a user is allowed to perform some action/permission in a given org below endpoint can be used
+
+```bash
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations/21892002/users/21892002900/permissions \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "actions": [
+    "read",
+    "write"
+  ]
+}'
+```
+
+The above endpoint will return a response containing all the permissions allowed for the user, if user has no permission an empty array will be returned
+
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/POST/v1/authorization/organizations/{orgId}/users/{userId}/permissions)
+</Tip>
+
+
+
+
+
+
+
+
+
+

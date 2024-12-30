@@ -1,0 +1,75 @@
+---
+sidebar_position: 2
+title: Azure AD Integration
+icon: microsoft
+iconType: brands
+---
+
+import AdminLoggedInWarning from "/snippets/_admin-logged-in-warning.mdx";
+
+
+<AdminLoggedInWarning />
+
+<Steps>
+<Step>
+To add the Azure AD Identity Provider to your application, you need to register your application with IAM server,
+for this you need clientId and clientSecret of Azure AD application.
+
+<Note>
+    Follow the [steps](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app) to
+    register your application with Azure AD.
+
+    If you already have an application registered with Azure AD, you can get the clientId and clientSecret from the
+    Azure AD API Console , [refer here](https://learn.microsoft.com/en-us/answers/questions/834401/hi-i-want-my-client-id-and-client-secret-key).
+</Note>
+
+#### Tenant Types
+
+When configuring the `tenantType` for Azure AD, you have several options to choose from, each catering to different scenarios:
+
+- **`AZURE_AD_TENANT_TYPE_COMMON`**: This tenant type allows both personal Microsoft accounts and organizational accounts. Use this if you want your application to support both types of users.
+
+- **`AZURE_AD_TENANT_TYPE_ORGANISATIONS`**: This tenant type restricts access to users with organizational (work or school) accounts only. Choose this option if your application is intended solely for business or educational users.
+
+- **`AZURE_AD_TENANT_TYPE_CONSUMERS`**: This tenant type is for personal Microsoft accounts only, excluding organizational accounts. Select this if your application is meant for individual users with personal Microsoft accounts.
+
+**Default value**: `AZURE_AD_TENANT_TYPE_COMMON` - If you do not specify a `tenantType`, this will be the default value used.
+
+
+
+```bash
+curl --request POST \
+  --url http://localhost:3000/v1/authorization/idps/azure \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "clientId": "d8f3c4a7-1234-5678-9101-abcdef123456",
+  "clientSecret": "GKCSPZ-cK6ukZSCVqUGCCvRSo8OEqOcys3b",
+  "tenantType": "AZURE_AD_TENANT_TYPE_COMMON"
+}'
+```
+
+Above call will return the id of the identity provider created along with the callback url.
+
+```json
+{
+  "message": "IDP activated successfully",
+  "id": "280259588811400351",
+  "callbackUrls": [
+    "https://dev-auth.iqraa.ai/idps/callback"
+  ]
+}
+```
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/POST/v1/authorization/idps/azure)
+</Tip>
+</Step>
+<Step>
+You can then use the above callback url and add it to `Authorized redirect uris` in the Micorosoft configs.
+
+<img src="/images/azure-console.png"  alt="Micorosoft Console" width="100%" />
+
+
+</Step>
+</Steps>

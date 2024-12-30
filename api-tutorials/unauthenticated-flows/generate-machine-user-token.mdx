@@ -1,0 +1,65 @@
+---
+sidebar_position: 2
+title: Access Token Generation for Machine User
+icon: universal-access
+iconType: solid
+---
+
+import AdminLoggedInWarning from "/snippets/_admin-logged-in-warning.mdx";
+
+
+<AdminLoggedInWarning />
+
+
+To generate an access token for a machine or service user, you will first need to obtain the machine user’s client ID and secret.
+These credentials can be used to authenticate and gain access to the API programmatically.
+
+
+<Steps>
+
+<Step title="Obtain Machine User Credentials">
+    1. First, create a machine user by making a POST request to the appropriate endpoint
+    (as described in **[this](../authenticated-flows/create-machine-user)** section).
+    2. The response will include the machine user’s clientId and clientSecret.
+</Step>
+
+<Step title="Generate Access Token">
+    1. Use the clientId and clientSecret obtained from the machine user creation
+       API to generate an access token.
+    2. The access token is required to authenticate subsequent API requests.
+
+```bash
+    curl --request POST \
+    --url https://dev-iam.razi.ai/v1/authentication/machine-users/access-token \
+    --header 'Content-Type: application/json' \
+    --header 'X-App-Name: ' \
+    --data '{
+    "clientId": "example-client-id",
+    "clientSecret": "zNUTk6frtcdrpEbRiOYx3lGjZpou1oRGVxt40SUj2qkBzUVh8gybTmOObmFvDPKw"
+}'
+```
+Upon successful generation of the access token, you will receive a response similar to the below:
+
+```json
+{
+    "token": "<JWT TOKEN>",
+    "expiresInSeconds": 43199
+}
+```
+    <Note>
+        Please note that if the token is expired after the time specified in the expiresInSeconds field,
+        a new token needs to be generated to access the API resources.
+    </Note>
+
+</Step>
+</Steps>
+
+<Info>
+    This token can now be used to authenticate API requests on behalf of the machine user
+</Info>
+<Tip>
+
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authentication/POST/v1/authentication/machine-users/access-token)
+</Tip>
+
+

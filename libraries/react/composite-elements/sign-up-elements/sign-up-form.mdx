@@ -1,0 +1,148 @@
+---
+sidebar_position: 0
+title: <SignUpForm />
+---
+
+import InputFieldProps from '/snippets/react/composite-elements/input-field-props.mdx';
+import ErrorMessage from '/snippets/react/composite-elements/error-message.mdx';
+import SubmitButton from '/snippets/react/composite-elements/submit-button.mdx';
+
+## Overview
+
+**SignUpForm** is a collection of components designed to facilitate the creation of a custom sign-up flow.
+It provides a set of components that encapsulate the business logic for handling forms, allowing users to easily
+customize the layout, styles, labels, placeholders, and button texts.
+
+## Example Usage
+
+```typescript custom-sign-up-form.tsx
+import { useRouter } from 'next/navigation';
+
+import { HttpError, Session } from '@locai1/iam-javascript';
+import { SignUpElements } from '@locai1/iam-react/elements';
+
+const { SignUnForm } = SignUpElements;
+
+const CustomSignUpForm = () => {
+   const { push } = useRouter();
+
+   const handleComplete = (session: Session | undefined) => {
+    console.log('Sign in complete', session);
+  };
+
+  const handleError = (error: HttpError | Error) => {
+    console.error('Sign in error ', error.message);
+  };
+
+  const verificationUrl = `${window.location.origin}/verify-email?code={{code}}&userId={{userId}}&sessionToken={{sessionToken}}`;
+
+  return (
+    <SignUpForm.Root
+      onComplete={handleComplete}
+      onError={handleError}
+      verificationUrl={verificationUrl}
+    >
+      <SignUpForm.FirstNameInput
+        label="First Name"
+        placeholder="Enter your first name"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SignUpForm.LastNameInput
+        label="Last Name"
+        placeholder="Enter your last name"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SignUpForm.EmailInput
+        label="Email"
+        placeholder="Enter your email"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SignUpForm.PasswordInput
+        label="Password"
+        placeholder="Enter your password"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SignUpForm.ConfirmPasswordInput
+        label="Confirm Password"
+        placeholder="Re-enter your password"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SignUpForm.ErrorMessage className="custom-error-class" />
+      <SignUpForm.SubmitButton text="Sign Up" className="custom-button-class" />
+    </SignUpForm.Root>
+  );
+};
+```
+
+## Components
+
+### SignUpForm.Root
+
+The root component of sign-up form. It encapsulates business logic for handling sign-up form.
+
+<Note>
+  **SignUpForm** is responsible for creating a user. You need to implement a **VerificationForm**(from **SignUpElement**)
+  that displays and handle otp inputs logic(entering the code from email) and complete registration flow.
+</Note>
+
+#### Props
+
+<ResponseField name="children" type="ReactNode">
+  React elements to be rendered inside the form. **SignUpForm** elements should be rendered as children of **SignUpForm.Root**.
+</ResponseField>
+
+<ResponseField name="onComplete" type="callback" required>
+  A callback function that is called when the sign-up process is successfully completed.
+</ResponseField>
+
+<ResponseField name="verificationUrl" type="string" required>
+  Verification url used to redirect user to verification page from email.
+  It should contain a placeholder for verification code.
+</ResponseField>
+
+<ResponseField name="onError" type="callback">
+  A callback function that is called when error happened during the sign-in process.
+</ResponseField>
+
+<ResponseField name="defaultValues" type="object">
+```typescript default values object structure
+{
+  email: string,
+  lastName: string,
+  firstName: string,
+}
+```
+Object with default values for email, last name and first name fields. Using default values you can pre-fill the form
+fields and make the sign-up process faster for the user skipping EmailInput, FirstNameInput and LastNameInput fields.
+</ResponseField>
+
+<ResponseField name="metadata" type="Record<string, string>">
+Optional metadata to be passed to iam. Metadata is a key-value pair that can be used to store additional information about the user.
+</ResponseField>
+
+### Input Fields
+
+SignUpForm has the following exported input fields:
+
+- SignUpForm.FirstNameInput - field for entering first name. Optional, if default values are provided.
+- SignUpForm.LastNameInput - field for entering last name. Optional, if default values are provided.
+- SignUpForm.EmailInput - field for entering email. Optional, if default values are provided.
+- SignUpForm.PasswordInput - field for entering password.
+- SignUpForm.ConfirmPasswordInput - field for entering password.
+
+All these fields have similar props listed below:
+
+<InputFieldProps />
+
+### SignInForm.ErrorMessage
+
+<ErrorMessage />
+
+### SignInForm.SubmitButton
+
+<SubmitButton />

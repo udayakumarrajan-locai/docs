@@ -1,0 +1,71 @@
+---
+sidebar_position: 0
+title: Verify Email
+icon: badge-check
+iconType: solid
+---
+
+import LoggedInWarning from "/snippets/_logged-in-warning.mdx";
+
+
+<LoggedInWarning />
+
+<Steps>
+<Step title="Initiate Email Verification">
+
+If a user has not initiated email verification or if the verification code has expired, the logged-in user can initiate the email verification process using the following endpoint:
+
+```bash
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authentication/users/email/verification-request \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "userId": "2789200",
+  "verificationUrl": "http://iqraa.ai/verify-email?code={{code}}&userId={{userId}}&sessionToken={{sessionToken}}"
+}'
+```
+
+
+This API call will return a 200 OK status if a new verification code is generated and sent to the user's email address.
+
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#tag/authentication/POST/v1/authentication/users/email/verification-request)
+In the above example, we are using `verificationUrl` to send a verification code to the user's email.
+
+The values `{{code}}`, `{{userId}}`, and `{{sessionToken}}` are placeholders that will be replaced with the actual values when the email is sent.
+</Tip>
+</Step>
+
+<Step title="User Clicks the link in the email">
+Once the user receives the email containing the verification code, they can click the link and it will redirect them to the client app url.
+
+In above request, the link will be `http://iqraa.ai/verify-email?code=XYZ123&userId=2893003&sessionToken=opaque-token-string`
+
+</Step>
+
+<Step title="Verify Email with code">
+
+Once the user is redirected to the link, they can use the information in query parameters to verify their email address by sending a request to the following endpoint:
+
+```bash
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authentication/users/email/verification \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer opaque-token-string' \
+  --data '{
+  "userId": "2893003",
+  "verificationCode": "XYZ123"
+}'
+```
+
+
+If the verification is successful, the user's `isEmailVerified` flag will be set to true
+
+<Tip>
+
+[Link to Playground](https://dev-iam.razi.ai/docs#tag/authentication/POST/v1/authentication/users/email/verification)
+</Tip>
+</Step>
+</Steps>

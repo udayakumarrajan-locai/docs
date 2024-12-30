@@ -1,0 +1,39 @@
+---
+sidebar_position: 1
+title: Get App Metadata
+icon: database
+iconType: solid
+---
+
+In order to integrate clients with IAM Service Social Media, we expose an endpoint to fetch identity providers info
+
+```json
+curl --request GET \
+  --url https://dev-iam.razi.ai/v1/authentication/apps/metadata \
+  --header 'X-App-Name: '
+```
+
+The above cURL returns the idp enabled in the application
+
+```json
+{
+  "idpProviders": [
+    {
+      "name": "Google",
+      "id": "271296458001489512",
+      "type": "GOOGLE"
+    },
+    {
+      "name": "AZURE_AD",
+      "id": "271296458001489514",
+      "type": "AZURE_AD"
+    }
+  ]
+}
+```
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#/tag/metadata/GET/v1/authentication/apps/metadata)
+
+The `type` field is an enum which can be used to identify the provider type.
+The `id` field is the id of the identity provider and will be used in next steps to create and validate the intent.
+</Tip>

@@ -1,0 +1,124 @@
+---
+sidebar_position: 2
+title: Search User of Organization
+icon: searchengin
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_orguser-machine-logged-in-warning.mdx";
+
+
+<UserTypeLoggedInWarning />
+
+<Note>
+  This API Will return  users for an organization, based on the search criteria provided. If you want list of all users
+    of an organization, you can refer [Get All Users of
+    organization](/api-tutorials/multi-tenancy/machine-user/get-all-users-of-organization)
+    endpoint.
+</Note>
+
+
+To get users from an organization based on the search criteria, you need to make a POST request to the following endpoint:
+
+## Headers
+<Steps>
+
+    <Step title="x-iam-orgid">
+        Specify the Organization Id here.
+        **Example**: 281185056586736799
+    </Step>
+</Steps>
+
+```bash
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations/users/search \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --header 'X-Iam-Orgid: ' \
+  --data '{
+  "name": "example name",
+  "email": "example@iam.com",
+  "userId": "698353537865",
+  "role": "admin"
+}'
+```
+## Query Parameters
+<Steps>
+
+    <Step title="page (optional, number)">
+        Specifies the page number to retrieve. Use this parameter to paginate through large sets of organizations. Defaults to 0 if not provided.
+        **Example**: ?page=2
+    </Step>
+    <Step title="pageSize (required, number)">
+        Specifies the number of organizations to return per page. This helps to control the size of the response data.
+        pageSize must not be greater than 100.
+        **Example**: ?pageSize=10
+    </Step>
+</Steps>
+
+## Search Parameters
+
+The following parameters are supported to search users:
+<Steps>
+    <Step title="name">
+        To search the users in the organization based on the name, you need to pass the name in the request body.
+        *This search parameter allows partial text matching*.
+
+    </Step>
+    <Step title="email">
+
+        To search the users in the organization based on the mail, you need to pass the email of the user
+        in the request body. *This search parameter allows partial text matching*.
+    </Step>
+    <Step title="userId">
+        To search the users in the organization based on the user's ID, you need to pass the user id in the request body.
+    </Step>
+    <Step title="role">
+        To search the users in the organization based on the user assigned role, you need to pass the role
+        in the request body.
+    </Step>
+
+</Steps>
+
+    <Info>
+        The search operation is exclusive and applies AND logic between parameters.
+        This means that if multiple parameters are provided
+        (e.g., name, email, and role), only users that match all specified
+        criteria will be returned.
+    </Info>
+
+Upon successful request, you will receive a paginated response similar to the below:
+
+```json
+{
+  "metadata": {
+    "total": 10
+  },
+  "users": [
+    {
+      "id": "1234567890",
+      "email": "johndoe@gmail.com",
+      "roles": [
+        "admin",
+        "user"
+      ],
+      "firstName": "John",
+      "lastName": "Doe",
+      "displayName": "John Doe"
+    }
+  ]
+}
+```
+<Check>
+
+    - metadata.total: The total number of users available in the organization.
+
+    - users: A list of users objects, with details of the user returned based on the search criteria
+</Check>
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/POST/v1/authorization/organizations/users/search)
+</Tip>
+
+

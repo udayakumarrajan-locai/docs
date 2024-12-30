@@ -1,0 +1,39 @@
+---
+sidebar_position: 2
+title: Delete a User
+icon: trash
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_role-based-human-machine-logged-in-warning.mdx";
+
+
+<UserTypeLoggedInWarning />
+<Note>
+  This API Will delete user from the app, if you want to delete user from an organization, use [Link](/api-tutorials/multi-tenancy/machine-user/delete-user-from-organization).
+</Note>
+
+
+Use the below endpoint to delete a user.
+
+```bash
+curl --request DELETE \
+  --url https://dev-iam.razi.ai/v1/authorization/users/__USERID__ \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'X-App-Name: '
+```
+
+Upon successful request, you will receive a response similar to the below:
+
+```json
+{
+    "message": "User Deleted"
+}
+
+```
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/DELETE/v1/authorization/users/{userId})
+</Tip>
+
+

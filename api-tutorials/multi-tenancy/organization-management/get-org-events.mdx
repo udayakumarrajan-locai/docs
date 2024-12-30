@@ -1,0 +1,71 @@
+---
+sidebar_position: 2
+title: Get Organization Events
+icon: info
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_human-machine-logged-in-warning.mdx";
+
+<Warning>
+    - Send a valid `Authorization` header with of type `Bearer TOKEN_VALUE` where **TOKEN_VALUE** is the token returned in the response from [Sign up](/api-tutorials/unauthenticated-flows/sign-up-by-username-password#sign-up-a-user) or [Sign in](/api-tutorials/unauthenticated-flows/sign-in-by-username-password) flow
+
+    In case your app supports cookie, you can enable request cookies as our API Automatically sets a cookie named `session-token` which is forwarded with each request to our api.
+</Warning>
+To retrieve organization events, you need to make a GET request to the following endpoint along with the organization ID:
+
+<Info>
+
+    This endpoint is accessible to
+    - Organization Owner
+    - Organization User Manager
+
+</Info>
+```bash
+curl --request GET \
+--url https://dev-iam.razi.ai/v1/authorization/organizations/__ORGID__/events \
+--header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+--header 'X-App-Name: '
+```
+
+## Query Parameters
+<Steps>
+  <Step title="pageSize (optional, number, default: 10)">
+    Specifies the number of organization events to return per page. This helps to control the size of the response data.
+    pageSize must not be greater than 100.
+
+    **Example**: ?pageSize=10
+  </Step>
+
+  Get events older than the UTC date in from parameter
+  <Step title="from (optional, date, default: now)">
+    from specifies date in UTC format to return events earlier than the specified in field value.
+
+    **Example**: ?from=2024-10-15T21:05:34
+  </Step>
+</Steps>
+
+Upon successful request, you will receive a paginated response similar to the below:
+
+```json
+{
+  "events": [
+    {
+      "type": "user.grant.added",
+      "message": "User Invited to org",
+      "date": "2024-10-15T15:12:11.615063Z",
+      "userId": "289375065517083313"
+    },
+    {
+      "type": "user.grant.removed",
+      "message": "User removed from org",
+      "date": "2024-10-14T20:08:47.362432Z",
+      "userId": "283143050253845430"
+    }
+  ]
+}
+```
+
+<Tip>
+  [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/GET/v1/authorization/organizations/{orgId}/events)
+</Tip>

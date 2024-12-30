@@ -1,0 +1,59 @@
+---
+sidebar_position: 0
+title: <UserDetails />
+---
+
+## Overview
+
+**UserDetails** component is a user interface element for displaying and updating user profile and security details.
+It includes forms for updating the user's profile information and changing the user's password. It provides a callback
+for redirecting to the sign-in page.
+
+<Warning>You can not customize this component layout structure, design or content.</Warning>
+
+<Frame caption="<UserDetails /> component profile tab">
+  <img noZoom src="/libraries/react/components/images/user-details/profile-form.webp" alt="<UserDetails /> component profile tab" />
+</Frame>
+
+<br />
+
+<Frame caption="<UserDetails /> component security tab" >
+  <img noZoom src="/libraries/react/components/images/user-details/security-form.webp" alt="<UserDetails /> component security tab"  />
+</Frame>
+
+## Props
+
+<ResponseField name="redirectToSignIn" type="callback">
+  A callback function that is called to redirect the user to the sign-in page.
+</ResponseField>
+
+## Example Usage
+
+<Note>
+  **Reference**:
+  - Demo Next.js project [source code](https://github.com/LocAI1/iam-javascript-sdk/blob/main/apps/iam-react-example)
+  - UserDetails page demo [source code](https://github.com/LocAI1/iam-javascript-sdk/blob/main/apps/iam-react-example/src/components/user-details.tsx)
+</Note>
+
+```typescript user-details.tsx
+'use client';
+
+import { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+
+import { UserDetails } from '@locai1/iam-react';
+
+import { SIGN_IN_PAGE } from '@/const';
+
+export const UserDetailsComponent = () => {
+  const { push } = useRouter();
+
+  const redirectToSignIn = useCallback(() => {
+    push(SIGN_IN_PAGE);
+  }, []);
+
+  return (
+    <UserDetails redirectToSignIn={redirectToSignIn} />
+  );
+};
+```

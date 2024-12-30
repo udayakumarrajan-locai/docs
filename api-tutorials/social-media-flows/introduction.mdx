@@ -1,0 +1,74 @@
+---
+sidebar_position: 0
+title: Social Media Integration
+icon: plug 
+iconType: solid
+---
+import TeamChannels from '/snippets/_team-channels.mdx';
+
+<Check>
+  IAM Service currently supports Below OAuth providers.
+  - **[Google](./oauth-providers/google-idp)**
+  - **[Microsoft](./oauth-providers/azure-idp)**
+
+</Check>
+
+<Steps>
+<Step title="Enable Social Media Integration">
+
+In order to enable social media integration for your application
+we need to follow 2 steps:
+1. [Register](/api-tutorials/social-media-flows/oauth-providers/google-idp) your application with IAM server, for this we need client_id and client_secret of your oauth application.
+2. Whitelist callback urls of auth server in your oauth provider console.
+
+<Note>
+Step 1 is only allowed for SUPER Admin user
+Reach out to our team via:
+
+<TeamChannels />
+</Note>
+</Step>
+
+<Step title="Social Media Integration in client application">
+
+
+Here is a sequence diagram for the social media integration from clients
+
+```mermaid
+sequenceDiagram
+  participant Client as Client App
+  participant IAM-API as IAM API
+  participant OAuth as OAuth Provider<br/>(Google, Microsoft...)
+
+  Client ->> +IAM-API: (GET) /v1/authentication/apps/metadata
+  IAM-API ->> -Client: Return idConfigs
+  
+
+  Note over Client: Use idpConfigs to render social media buttons
+
+  Client ->> +IAM-API: (POST) /v1/authentication/idp/intents/create
+  IAM-API ->> -Client: Return authUrl
+
+  Note over Client: Use authUrl to redirect <br/> to google/microsoft OAuth Process
+
+  Client ->> +OAuth: Redirect to authUrl returned above
+  alt is authenticated successfully
+    OAuth ->> Client: Redirect to success page
+  else is authentication failed
+     OAuth ->> Client: Redirect to failure page
+  end
+  deactivate OAuth
+
+  Client ->> +IAM-API: (POST) /v1/authentication/idp/intents/validate
+  
+  alt if user email exists
+    IAM-API ->> IAM-API: Link social media account and update access token
+  else
+    IAM-API ->> IAM-API: Create user with social media account info and token
+  end
+  IAM-API ->> -Client: Return Session Info
+```
+
+Next steps in documentation will explain how to implement the above flow in your client application.
+</Step>
+</Steps>

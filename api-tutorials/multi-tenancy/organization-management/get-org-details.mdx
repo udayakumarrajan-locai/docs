@@ -1,0 +1,98 @@
+---
+sidebar_position: 2
+title: Get Organizations Details
+icon: info
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_human-machine-logged-in-warning.mdx";
+
+<UserTypeLoggedInWarning />
+
+<Warning>
+    <b>For human users</b>:
+
+    - Send a valid `Authorization` header with of type `Bearer TOKEN_VALUE` where **TOKEN_VALUE** is the token returned in the response from [Sign up](/api-tutorials/unauthenticated-flows/sign-up-by-username-password#sign-up-a-user) or [Sign in](/api-tutorials/unauthenticated-flows/sign-in-by-username-password) flow
+
+    In case your app supports cookie, you can enable request cookies as our API Automatically sets a cookie named `session-token` which is forwarded with each request to our api.
+</Warning>
+To retrieve organization details, you need to make a GET request to the following endpoint along with the organization ID:
+
+<Info>
+
+    This endpoint is accessible to
+    - Machine Users
+    - Organization Owner
+    - Organization User Manager
+
+</Info>
+```bash
+curl --request GET \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations/__ORGID__ \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'X-App-Name: '
+```
+
+## Query Parameters
+<Steps>
+
+    <Step title="includeMetadata (optional, boolean, default: false)">
+        A boolean value to return metadata associated with the organization. To get the metadata in response, set this
+        parameter to true.
+        <Note>
+            We will return maximum 30 metadata items in the response. It is expected that no more than 30 metadata items
+            will be stored per organization.
+        </Note>
+        **Example**: ?includeMetadata=true
+    </Step>
+
+    <Step title="includeMembers (optional, boolean, default: false)">
+        A boolean value to return organization members associated with the organization, for example Admin, Managers.
+        To get the member details in response, set this parameter to true.
+
+        **Example**: ?includeMembers=true
+    </Step>
+</Steps>
+Upon successful request, you will receive a paginated response similar to the below:
+
+```json
+{
+  "state": "Active",
+  "name": "Example Org",
+  "metadata": {
+    "total": "20",
+    "orgMetadataList": [
+      {
+        "key": "exampleKey",
+        "value": "exampleValue"
+      }
+    ]
+  },
+  "members": {
+    "orgAdmin": [
+      {
+        "userId": "1131314",
+        "email": "example@example.com",
+        "firstName": "Example",
+        "lastName": "User",
+        "displayName": "Example User"
+      }
+    ],
+    "orgUserManager": [
+      {
+        "userId": "1131314",
+        "email": "example@example.com",
+        "firstName": "Example",
+        "lastName": "User",
+        "displayName": "Example User"
+      }
+    ]
+  }
+}
+```
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/GET/v1/authorization/organizations/{orgId})
+</Tip>
+
+

@@ -1,0 +1,56 @@
+---
+sidebar_position: 0
+title: useAppMetadata()
+---
+
+## Overview
+
+**useAppMetadata** hook is used to fetch and manage the application metadata.
+It leverages the react-query library to handle the asynchronous operation and provides error handling and success callbacks.
+
+<Note>
+Use useAppMetadata to fetch identity providers list for OAuth authentication.
+</Note>
+
+## Parameters
+
+<ResponseField name="onSuccess" type="(metadata: AppMetadata) => void" required>
+  callback function that is called when the fetching process is successful. It receives the AppMetadata object as an argument.
+</ResponseField>
+
+<ResponseField name="onError" type="HttpErrorCallback" required>
+  callback function that is called when an error occurs during the fetching process.
+  <HttpErrorCallbackType />
+</ResponseField>
+
+## Returns
+
+<ResponseField name="data" type="AppMetadata | undefined">
+  application metadata object if the fetching process is successful.
+
+```typescript AppMetadata type
+type AppMetadata = {
+  idpProviders: IdentityProvider[];
+};
+```
+
+```typescript IdentityProvider type
+type IdentityProvider = {
+  name: string;
+  id: string;
+  type: string;
+};
+```
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the fetching process is currently in progress.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred during the fetching process.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error">
+  error object if an error occurred during the fetching process.
+</ResponseField>

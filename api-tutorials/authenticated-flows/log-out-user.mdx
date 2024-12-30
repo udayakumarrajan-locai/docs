@@ -1,0 +1,28 @@
+---
+sidebar_position: 4
+title: Sign Out User
+icon: right-from-bracket
+iconType: solid
+---
+
+import LoggedInWarning from "/snippets/_logged-in-warning.mdx";
+
+
+<LoggedInWarning />
+
+In order to sign out a user, the below endpoint can be used
+
+```bash
+curl --request DELETE \
+  --url https://dev-iam.razi.ai/v1/authentication/users/sessions/289200 \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'X-App-Name: '
+```
+This API call will return a 204 status if session is terminated successfully.
+
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#tag/authentication/DELETE/v1/authentication/users/sessions/{sessionId})
+
+In the above url the `__SESSIONID__` is the value of `sessionId` key from response of [Sign up](/api-tutorials/unauthenticated-flows/sign-up-by-username-password) or [Sign in](/api-tutorials/unauthenticated-flows/sign-in-by-username-password) flow 
+</Tip>
+

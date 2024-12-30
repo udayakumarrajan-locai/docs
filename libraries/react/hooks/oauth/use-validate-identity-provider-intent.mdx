@@ -1,0 +1,48 @@
+---
+sidebar_position: 0
+title: useValidateIdentityProviderIntent()
+---
+
+import SessionType from '/snippets/react/types/session.mdx';
+import HttpErrorCallbackType from '/snippets/react/types/http-error-callback.mdx';
+
+## Overview
+
+**useValidateIdentityProviderIntent** hook is used to validate an identity provider intent.
+It leverages the react-query library to manage the asynchronous operation and provides error handling and success callbacks.
+
+## Parameters
+
+<ResponseField name="onSuccess" type="(session: Session | undefined) => void" required>
+  callback function that is called when the validation process is successful. It receives the Session object as an argument.
+  <SessionType />
+</ResponseField>
+
+<ResponseField name="onError" type="HttpErrorCallback" required>
+  callback function that is called when an error occurs during the validation process.
+  <HttpErrorCallbackType />
+</ResponseField>
+
+## Returns
+
+<ResponseField name="validateIdentityProviderIntent" type="(request: ValidateIdentityProviderIntentRequest) => void">
+  function that triggers the validation process with the provided payload.
+```typescript ValidateIdentityProviderIntentRequest type
+type ValidateIdentityProviderIntentRequest = {
+  intentId: string;
+  idpToken: string;
+};
+  ```
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the validation process is currently in progress.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred during the validation process.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error | null">
+  error object if an error occurred during the validation process.
+</ResponseField>

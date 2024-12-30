@@ -1,0 +1,87 @@
+---
+sidebar_position: 0
+title: <VerifyForm />
+---
+
+import ErrorMessage from '/snippets/react/composite-elements/error-message.mdx';
+import SubmitButton from '/snippets/react/composite-elements/submit-button.mdx';
+
+## Overview
+
+**VerifyForm** is a collection of components designed to facilitate creation of a custom verification flow.
+It provides a set of components that encapsulate the business logic for handling verification forms, allowing
+users to easily customize the layout, styles, labels, placeholders, and button texts.
+
+## Example Usage
+
+```typescript custom-verify-form.tsx
+import { useState } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import { SignUpElements } from '@locai1/iam-react/elements';
+
+const { VerifyForm } = SignUpElements;
+
+const CustomVerifyForm = ({ onComplete, email }) => {
+  const { i18n } = useTranslation();
+  const [email, setEmail] = useState<string | undefined>();
+
+  const handleComplete = (value: string) => {
+    setEmail(value);
+    console.log(`Verify code for email ${value} requested`);
+  };
+
+  return (
+    <VerifyForm.Root onComplete={handleComplete}>
+      <VerifyForm.OtpInputs
+        dir={i18n.dir()}
+      />
+      <VerifyForm.ErrorMessage
+        className="custom-error-class"
+      />
+      <VerifyForm.SubmitButton
+        text="Verify"
+        className="custom-button-class"
+      />
+    </VerifyForm.Root>
+  );
+};
+```
+
+### VerifyForm.Root
+
+The root component of verify form. It encapsulates business logic for handling verification process.
+
+<Note>
+  **VerifyForm** is responsible for user verification. You need to implement a **SigUpForm**(from **SignUpElement**)
+  that handles user creation process and requests verification code.
+</Note>
+
+#### Props
+
+<ResponseField name="children" type="ReactNode">
+  React elements to be rendered inside the form. **VerifyForm** elements should be rendered as children of **VerifyForm.Root**.
+</ResponseField>
+
+<ResponseField name="onComplete" type="callback" required>
+  A callback function that is called when verification is successfully completed.
+</ResponseField>
+
+### VerifyForm.OtpInputs
+
+Displays input fields for the entering one-time password (OTP).
+
+#### Props
+
+<ResponseField name="dir" type="ltr | rtl" default="ltr">
+  Direction of the input fields (e.g., "ltr" or "rtl").
+</ResponseField>
+
+### VerifyForm.ErrorMessage
+
+<ErrorMessage />
+
+### VerifyForm.SubmitButton
+
+<SubmitButton />

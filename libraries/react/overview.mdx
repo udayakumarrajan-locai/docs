@@ -1,0 +1,32 @@
+---
+sidebar_position: 0
+title: Overview
+---
+
+<Note>
+**Related Links**
+- [Github Repo](https://github.com/LocAI1/iam-javascript-sdk/tree/main/packages/iam-javascript)
+- [Github Package](https://github.com/LocAI1/iam-javascript-sdk/pkgs/npm/iam-javascript)
+</Note>
+
+React SDK provides a set of components and hooks for interacting with the IAM backend.
+
+Using this library, you can quickly start using the IAM service backend.
+
+The library can be used at three levels of abstraction:
+
+1. Fully ready-made components: provide out-of-the-box functionality for authorization,
+registration, password recovery, and user data management. These components may be expanded/modified
+as the library evolves. The downside of this approach is that these components cannot be customized.
+The design of the components is built in light tones using the shadcn UI library.
+
+2. Composite elements level: represents a set of components for building custom forms.
+All components available at the first level are built from composite elements. With these components,
+you can easily create a full-fledged component (authorization, registration, etc.) with your own
+structure, pass style classes, your own event handlers, texts for labels and buttons.
+
+3. Hook Level: represents a set of hooks for working with the backend.
+With these hooks, you can create your own components.
+The hooks provide functionality for authentication, registration, password recovery,
+and user data management. Hooks can be used in any component, including components created at
+the second level.

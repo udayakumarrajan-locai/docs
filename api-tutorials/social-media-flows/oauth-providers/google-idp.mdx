@@ -1,0 +1,58 @@
+---
+sidebar_position: 2
+title: Google Integration
+icon: google
+iconType: brands
+---
+
+import AdminLoggedInWarning from "/snippets/_admin-logged-in-warning.mdx";
+
+
+<AdminLoggedInWarning />
+<Steps>
+<Step>
+To add the Google Identity Provider to your application, you need to register your application with IAM server,
+for this you need clientId and clientSecret of Google oauth application.
+
+<Note>
+   You can get the clientId and clientSecret from the [Google API
+    Console](https://console.developers.google.com/apis).
+    or follow these [steps](https://developers.google.com/identity/oauth2/web/guides/get-google-api-clientid)
+</Note>
+
+```bash
+curl --request POST \
+  --url http://localhost:3000/v1/authorization/idps/google \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "clientId": "425512514548-plecdmi4lb18dvbsn6b5hve81o4ouvie.apps.googleusercontent.com",
+  "clientSecret": "GKCSPZ-cK6ukZSCVqUGCCvRSo8OEqOcys3b"
+}'
+```
+
+Above call will return the id of the identity provider created along with the callback url.
+
+```json
+{
+  "message": "IDP activated successfully",
+  "id": "280259588811400351",
+  "callbackUrls": [
+    "https://dev-auth.iqraa.ai/idps/callback"
+  ]
+}
+```
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/POST/v1/authorization/idps/google)
+</Tip>
+</Step>
+<Step>
+You can then use the above callback url and add it to `Authorized redirect uris` in the Google API Console.
+
+<img src="/images/google-console.png"  alt="Google API Console" width="100%" />
+
+</Step>
+</Steps>
+

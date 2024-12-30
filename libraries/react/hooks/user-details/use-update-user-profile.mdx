@@ -1,0 +1,49 @@
+---
+sidebar_position: 0
+title: useUpdateUserProfile()
+---
+
+import HttpErrorCallbackType from '/snippets/react/types/http-error-callback.mdx';
+
+## Overview
+
+**useUpdateUserProfile** hook is used to handle the process of updating a user's profile.
+It leverages the react-query library to manage the asynchronous operation and provides error handling and success callbacks.
+
+## Parameters
+
+<ResponseField name="onSuccess" type="() => void" required>
+  callback function that is called when the profile update process is successful.
+  <SessionType />
+</ResponseField>
+
+<ResponseField name="onError" type="HttpErrorCallback" required>
+  callback function that is called when an error occurs during the profile update process.
+  <HttpErrorCallbackType />
+</ResponseField>
+
+## Returns
+
+<ResponseField name="updateUserProfile" type="(payload: UpdateUserProfileRequest) => void">
+  function that triggers the profile update process with the provided payload.
+```typescript UpdateUserProfileRequest type
+type UpdateUserProfileRequest = {
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  metadata?: Record<string, string>;
+};
+  ```
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the profile update process is currently in progress.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred during the profile update process.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error | null">
+  error object if an error occurred during the profile update process.
+</ResponseField>

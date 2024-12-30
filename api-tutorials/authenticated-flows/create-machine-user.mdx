@@ -1,0 +1,53 @@
+---
+sidebar_position: 2
+title: Create Machine User
+icon: head-side-gear
+iconType: solid
+---
+
+import AdminLoggedInWarning from "/snippets/_admin-logged-in-warning.mdx";
+
+
+<AdminLoggedInWarning />
+
+
+To create a machine or service user who can access the API programmatically,
+you would need to make a POST request to the following endpoint:
+
+```bash
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authorization/machine-users \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "userName": "robot"
+}'
+```
+
+Upon successful creation of the machine user, you will receive a response similar to the below:
+
+```json
+{
+    "machineUserId": "280719066056893738",
+    "clientId": "example-client-id",
+    "clientSecret": "zNUTk6frtcdrpEbRiOYx3lGjZpou1oRGVxt40SUj2qkBzUVh8gybTmOObmFvDPKw"
+}
+```
+
+<Info>
+    Use the clientId and clientSecret generated to generate the access token for
+    the machine user to authenticate and access the services.
+    Store the secrets in a <b>safe</b> and <b>secure</b> place as you will not be able to retrieve them after.
+</Info>
+
+<Warning>
+    Please note that the client secrets should be unique to each application. Each application should generate its
+    own set of client secret.
+</Warning>
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/POST/v1/authorization/users/machine)
+</Tip>
+
+

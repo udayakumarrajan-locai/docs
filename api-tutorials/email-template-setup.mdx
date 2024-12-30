@@ -1,0 +1,26 @@
+---
+sidebar_position: 2
+title: Features Setup
+icon: wrench
+iconType: solid
+---
+
+import TeamChannels from "/snippets/_team-channels.mdx"
+
+### Session lifetime setup
+
+Some apps might have custom requirements for session lifetime.
+By default IAM Service do not have an expiration time for sessions.
+If you need this ability, please reach out to our team.
+
+<TeamChannels />
+
+### <Icon icon="mailchimp" /> Email Template Setup
+<Tip>
+Due to usage of secret OTP, we do not allow you to use your own email provider.
+
+- Send Verification Email.
+- Send Password Reset Email
+
+We are using mailchimp as provider and will copy your existing templates and prefix with IAM and use for our service.
+</Tip>

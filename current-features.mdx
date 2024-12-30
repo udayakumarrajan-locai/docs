@@ -1,0 +1,261 @@
+---
+title: Current Feature List
+icon: list-timeline
+---
+IAM system is designed to provide secure, scalable, and user-friendly access management for modern applications.
+It includes a comprehensive set of features such as user and group management, multi-factor authentication,
+session control, and protocol support for seamless integrations. Additional capabilities like multi-tenancy,
+LDAP/AD connectivity, SCIM provisioning, and notification services ensure flexibility and compliance across
+diverse environments. With a focus on automation, security, and customization,
+our IAM solution empowers developers to build secure, user-centric applications with ease.
+
+<AccordionGroup>
+    <Accordion title="Profile Management" icon="address-card">
+        <b>User Profile Management</b>
+        <div style={{margin: '1rem'}}>
+            <li>View and update user profile details (name, email, phone number, etc.)</li>
+            <li>Manage privacy and communication preferences</li>
+        </div>
+
+        <b> Account Settings:</b>
+        <div style={{margin: '1rem'}}>
+            <li>Password change and reset functionalities.</li>
+            <li>OTP management.</li>
+            <li>Access history and activity logs.</li>
+        </div>
+
+        <b>Role and Group Management</b>
+        <div style={{margin: '1rem'}}>
+            <li>Assign roles to users.</li>
+            <li>View group memberships.</li>
+            <li>Manage user groups and permissions.</li>
+        </div>
+    </Accordion>
+    <Accordion title="Token Management" icon="hexagon-image">
+        <b>Access Tokens</b>
+        <div style={{margin: '1rem'}}>
+            <li>View active sessions and associated tokens</li>
+            <li>Revoke specific or all active tokens</li>
+        </div>
+        <b>Refresh Tokens</b>
+        <div style={{margin: '1rem'}}>
+            <li>Manage refresh token lifetimes and policies.</li>
+        </div>
+        <b>Token Details</b>
+        <div style={{margin: '1rem'}}>
+            <li>Provide token metadata</li>
+            <li>Support for JWT and opaque tokens</li>
+            <li>Token introspection and validation</li>
+        </div>
+    </Accordion>
+    <Accordion title="Multi-Factor Authentication (MFA)" icon="mobile-signal">
+        <b>Authentication Methods</b>
+        <div style={{margin: '1rem'}}>
+            <li>Email-based OTP.</li>
+        </div>
+        <b>MFA Enrollment</b>
+        <div style={{margin: '1rem'}}>
+            <li>User-friendly MFA setup wizard and APIs</li>
+            <li>Management of multiple MFA devices</li>
+        </div>
+    </Accordion>
+    <Accordion title="LDAP/AD Integration" icon="laptop">
+        <b>LDAP Support</b>
+        <div style={{margin: '1rem'}}>
+            <li>Integrate with on-premise LDAP directories.</li>
+            <li>Support for LDAP authentication and user synchronization.</li>
+        </div>
+        <b>Active Directory (AD) Integration</b>
+        <div style={{margin: '1rem'}}>
+            <li>Seamless integration with Microsoft AD for user and group synchronization.</li>
+            <li>Support single sign-on (SSO) via AD.</li>
+            <li>Periodic or event-driven user and group sync.</li>
+        </div>
+        <b>User Federation</b>
+        <div style={{margin: '1rem'}}>
+            <li>Allow authentication using LDAP/AD credentials.</li>
+            <li>Map LDAP/AD groups to IAM roles</li>
+        </div>
+    </Accordion>
+    <Accordion title="Protocol Support" icon="ruler-vertical">
+        <b>Standard Authentication Protocols</b>
+        <div style={{margin: '1rem'}}>
+            <li>OAuth 2.0 for authorization.</li>
+            <li>OpenID Connect (OIDC) for authentication.</li>
+            <li>SAML 2.0 for federated identity and SSO.</li>
+        </div>
+        <b>Token Support</b>
+        <div style={{margin: '1rem'}}>
+            <li>Support for JWT (JSON Web Tokens).</li>
+            <li>Token revocation endpoints.</li>
+        </div>
+        <b>Federation</b>
+        <div style={{margin: '1rem'}}>
+            <li>Support for third-party identity providers (e.g., Google, Azure AD, Okta)</li>
+            <li>Enable SSO via SAML or OIDC with external identity providers.</li>
+        </div>
+    </Accordion>
+    <Accordion title="Tenant Management" icon="building-user">
+        <b>Multi-Tenancy Support</b>
+        <div style={{margin: '1rem'}}>
+            <li>Manage multiple tenants within the same IAM system</li>
+            <li>Separate user data, roles, and permissions for each tenant</li>
+            <li>Support for both "shared" and "isolated" tenant data models.</li>
+        </div>
+        <b>Per-Tenant Customization</b>
+        <div style={{margin: '1rem'}}>
+            <li>Allow custom branding, themes, and domain configurations for each tenant.</li>
+            <li>Tenant-specific authentication methods or identity provider configurations</li>
+        </div>
+        <b>Tenant Isolation</b>
+        <div style={{margin: '1rem'}}>
+            <li>Ensure strict isolation of user data, logs, and permissions between tenants</li>
+            <li>Enforce security policies specific to individual tenants.</li>
+        </div>
+    </Accordion>
+    <Accordion title="Delegated Administration" icon="user-group-crown">
+        <b>Tenant-Level Administrators</b>
+        <div style={{margin: '1rem'}}>
+            <li>Allow specific users to act as administrators for their respective tenants.</li>
+            <li>Provide scoped administrative capabilities (e.g., user management, group assignments) limited to their
+                tenant.</li>
+        </div>
+        <b>Scoped Policies</b>
+        <div style={{margin: '1rem'}}>
+            <li>Enable policy-based access control at the tenant level</li>
+            <li>Allow each tenant to define its own roles and permissions</li>
+        </div>
+    </Accordion>
+    <Accordion title="User and Group Management" icon="people-group">
+        <b>Tenant-Specific User Pools</b>
+        <div style={{margin: '1rem'}}>
+            <li>Maintain separate user directories for each tenant</li>
+            <li>Support user federation within a tenant's boundaries (e.g., LDAP/AD for one tenant)</li>
+        </div>
+        <b>Group and Role Management</b>
+        <div style={{margin: '1rem'}}>
+            <li>Assign roles and permissions that are valid only within the scope of a specific tenant</li>
+        </div>
+        <b>Disable Inactive Users</b>
+        <div style={{margin: '1rem'}}>
+            <li>Automatically disable user accounts after a defined period of inactivity.</li>
+            <li>Configurable inactivity threshold (e.g., 30, 60, or 90 days).</li>
+            <li>Send reminder notifications to users before deactivation, encouraging them to log in.</li>
+            <li>Provide admins with a dashboard to view and manage inactive accounts.</li>
+            <li>Allow reactivation of disabled accounts through admin approval or user self-service.</li>
+        </div>
+        <br/>
+        <b>Restrict Multi-Sessions</b>
+        <div style={{margin: '1rem'}}>
+            <li>Limit the number of concurrent sessions per user (e.g., one session per device or user).</li>
+            <li>Configurable policies for multi-session restrictions:</li>
+            <div style={{margin: '2rem'}}>
+                <li>Allow specific roles or users to bypass restrictions.</li>
+                <li>Define session limits per user, group, or role.</li>
+            </div>
+            <li>Automatically terminate previous sessions when a new session is created (optional).</li>
+            <li>Admin interface to monitor and revoke active sessions for any user.</li>
+            <li> Prevent simultaneous logins from different devices for sensitive roles or actions.</li>
+        </div>
+    </Accordion>
+    <Accordion title="Notification Support" icon="bell">
+        <b>Email Notifications</b>
+        <div style={{margin: '1rem'}}>
+            <li>Send email alerts to users for key events, including:</li>
+            <div style={{marginLeft: '2rem'}}>
+                <ul>
+                    <li>Account creation and activation</li>
+                    <li>Password reset requests</li>
+                    <li>Account creation and activation</li>
+                    <li>Successful password changes</li>
+                    <li>Failed or suspicious login attempts</li>
+                    <li>Session expiration warnings</li>
+                    <li>Multi-Factor Authentication (MFA) setup and confirmation</li>
+                    <li>Role or permission changes</li>
+                </ul>
+            </div>
+        </div>
+        <b>Customizable Email Templates</b>
+        <div style={{margin: '1rem'}}>
+            <li>Provide prebuilt templates for common notifications</li>
+            <li>Allow admins to customize email content and branding (e.g., logo, colors, and footer)</li>
+        </div>
+        <b>Localized Emails</b>
+        <div style={{margin: '1rem'}}>
+            <li>Support for multilingual email notifications based on user preferences</li>
+        </div>
+        <b>Delivery Status Tracking</b>
+        <div style={{margin: '1rem'}}>
+            <li>Track email delivery, open rates, and failures</li>
+            <li>Provide error logs for failed email deliveries</li>
+        </div>
+        <b>Per-Tenant Email Configuration (for multitenancy)</b>
+        <div style={{margin: '1rem'}}>
+            <li>Allow tenants to configure their own email sender details (e.g., sender name, domain)</li>
+            <li>Provide support for tenant-specific email templates</li>
+        </div>
+        <b>Event-Driven Notifications</b>
+        <div style={{margin: '1rem'}}>
+            <li>Configure notifications for various user lifecycle events (e.g., role assignment, account deactivation)</li>
+            <li>Enable/disable specific notifications at the admin level</li>
+        </div>
+    </Accordion>
+    <Accordion title="Security" icon="lock">
+        <b>Encryption</b>
+        <div style={{margin: '1rem'}}>
+            <li>Data encryption (at rest and in transit). Support both symmetric and Asymmetric encryption</li>
+        </div>
+        <b>Audit and Logging</b>
+        <div style={{margin: '1rem'}}>
+            <li>Record login attempts, token usage, and administrative actions</li>
+            <li>Real-time monitoring and alerts for suspicious activities</li>
+        </div>
+        <b>Access Policies</b>
+        <div style={{margin: '1rem'}}>
+            <li>Granular policy-based access control ( Cerbos)</li>
+        </div>
+    </Accordion>
+    <Accordion title="Self-Service Features" icon="images-user">
+        <b>Password Recovery</b>
+        <div style={{margin: '1rem'}}>
+            <li>Secure password reset flow (via email)</li>
+        </div>
+        <b>Account Management</b>
+        <div style={{margin: '1rem'}}>
+            <li>Self-service account deactivation</li>
+            <li>User-initiated session termination</li>
+        </div>
+    </Accordion>
+    <Accordion title="Developer & Integration Support" icon="brackets-curly">
+        <b>APIs</b>
+        <div style={{margin: '1rem'}}>
+            <li>Comprehensive REST APIs for managing IAM functionalities</li>
+        </div>
+        <b>SDKs</b>
+        <div style={{margin: '1rem'}}>
+            <li>SDKs for popular languages (nodejs)</li>
+            <li>Prebuilt UI components for embedding IAM features</li>
+        </div>
+        <b>Documentation</b>
+        <div style={{margin: '1rem'}}>
+            <li>Detailed developer documentation and guides</li>
+            <li>Example integrations and tutorials</li>
+        </div>
+    </Accordion>
+    <Accordion title="Additional Features" icon="cart-plus">
+        <b>Delegated Administration</b>
+        <div style={{margin: '1rem'}}>
+            <li>Allow specific users to manage subgroups or tenants</li>
+        </div>
+        <b>Tenant Management</b>
+        <div style={{margin: '1rem'}}>
+            <li>Multi-tenancy support for SaaS applications</li>
+        </div>
+        <b>Custom Branding</b>
+        <div style={{margin: '1rem'}}>
+            <li>Customizable login and profile pages</li>
+            <li>Support for custom domain names.</li>
+        </div>
+    </Accordion>
+
+</AccordionGroup>

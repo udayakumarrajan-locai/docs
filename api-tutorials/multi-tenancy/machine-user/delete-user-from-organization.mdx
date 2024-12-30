@@ -1,0 +1,50 @@
+---
+sidebar_position: 2
+title: Delete User from Organization
+icon: ban
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_role-based-human-machine-logged-in-warning.mdx";
+
+
+<UserTypeLoggedInWarning />
+
+<Note>
+  This API Will delete user from an organization, if you want to permanently delete user from the app, use [Link](/api-tutorials/multi-tenancy/machine-user/delete-a-user).
+</Note>
+
+
+To delete a user from an organization, you need to make a DELETE request to the following endpoint:
+
+## Headers
+<Steps>
+
+    <Step title="x-iam-orgid">
+        Specify the Organization Id here.
+        **Example**: 281185056586736799
+    </Step>
+</Steps>
+
+```bash
+curl --request DELETE \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations/users/21892002 \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'X-App-Name: ' \
+  --header 'X-Iam-Orgid: '
+```
+
+Upon successful request, the user will be deleted from the organization and the response will be similar to the below:
+
+```json
+{
+  "message": "User 281435913177801305 removed from organization 281185056586736799"
+}
+```
+
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/DELETE/v1/authorization/organizations/users/{userId})
+</Tip>
+
+

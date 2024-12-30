@@ -1,0 +1,188 @@
+---
+sidebar_position: 0
+title: useSignUp()
+---
+
+import SessionType from '/snippets/react/types/session.mdx';
+import HttpErrorCallbackType from '/snippets/react/types/http-error-callback.mdx';
+
+## Overview
+
+**useSignUp** hook is used to handle the sign-up process. It leverages the react-query
+library to manage the asynchronous operation and provides error handling and success callbacks.
+
+## Example Usage
+
+```typescript sign-up-component.tsx
+"use client";
+
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+import { HttpError } from '@locai1/iam-javascript';
+import { useSignUp } from '@locai1/iam-react';
+
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+
+import { validatePassword } from '@/utils';
+
+const formSchema = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().email(),
+  password: z.string().min(8, {
+    message: 'Password must be at least 8 characters',
+  })
+  .refine(validatePassword, {
+    message: 'Password must contain an uppercase letter, a lowercase letter, a number, and a special character',
+  }),
+  confirmPassword: z.string().min(1),
+})
+.superRefine(({ confirmPassword, password }, ctx) => {
+  if (confirmPassword !== password) {
+    ctx.addIssue({
+      code: "custom",
+      message: "Passwords must match",
+      path: ['confirmPassword']
+    });
+  }
+});
+
+type SignUpProps = {
+  onComplete: () => void;
+};
+
+export const SignUp = ({ onComplete }: SignUpProps) => {
+  const [error, setError] = useState<HttpError | Error>();
+
+  const { signUp } = useSignUp({
+    onError: setError,
+    onSuccess: onComplete,
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+  });
+
+  const handleSignUpSubmit = async (data: z.infer<typeof formSchema>) => {
+    await signUp(data);
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSignUpSubmit)}>
+        <FormField
+          control={form.control}
+          name="firstName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>First name</FormLabel>
+              <FormControl>
+                <Input type="text" required {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="lastName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Last name</FormLabel>
+              <FormControl>
+                <Input type="text" required {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="example@locai.ae" required {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input type="password" required {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input type="password" required {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {error?.message}
+        <Button type="submit">
+          Create an account
+        </Button>
+      </form>
+    </Form>
+  );
+};
+```
+
+## Parameters
+
+<ResponseField name="onSuccess" type="(session: Session | undefined) => void" required>
+  callback function that is called when the sign-up process is successful. It receives the **Session** object as an argument.
+
+  <SessionType />
+</ResponseField>
+
+<ResponseField name="onError" type="HttpErrorCallback" required>
+  callback function that is called when an error occurs during the sign-up process.
+
+  <HttpErrorCallbackType />
+</ResponseField>
+
+## Returns
+
+<ResponseField name="signIn" type="({ email, password }) => void">
+  function that triggers the sign-up process.
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the sign-up process is currently in progress.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred during the sign-up process.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error">
+  error object containing details of the error that occurred during the sign-up process.
+</ResponseField>

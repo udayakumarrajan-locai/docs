@@ -1,0 +1,53 @@
+---
+sidebar_position: 0
+title: useCreateIdentityProviderIntent()
+---
+
+import HttpErrorCallbackType from '/snippets/react/types/http-error-callback.mdx';
+
+## Overview
+
+**useCreateIdentityProviderIntent** hook is used to create an identity provider intent.
+It leverages the react-query library to manage the asynchronous operation and provides error handling and success callbacks.
+
+## Parameters
+
+<ResponseField name="onSuccess" type="(response: CreateIdentityProviderIntentResponse) => void" required>
+  callback function that is called when the creation process is successful.
+  It receives the CreateIdentityProviderIntentResponse object as an argument.
+```typescript CreateIdentityProviderIntentResponse type
+type CreateIdentityProviderIntentResponse = {
+  authUrl: string;
+};
+  ```
+</ResponseField>
+
+<ResponseField name="onError" type="HttpErrorCallback" required>
+  callback function that is called when an error occurs during the creation process.
+  <HttpErrorCallbackType />
+</ResponseField>
+
+## Returns
+
+<ResponseField name="createIdentityProviderIntent" type="(request: CreateIdentityProviderIntentRequest) => void">
+  function that triggers the creation process with the provided payload.
+```typescript CreateIdentityProviderIntentRequest type
+type CreateIdentityProviderIntentRequest = {
+  idpId: string;
+  successUrl: string;
+  failureUrl: string;
+};
+  ```
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the creation process is currently in progress.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred during the creation process.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error | null">
+  error object if an error occurred during the creation process.
+</ResponseField>

@@ -1,0 +1,76 @@
+---
+sidebar_position: 4
+title: Assign/Invite User with custom role
+icon: paper-plane
+iconType: solid
+---
+
+
+```mermaid
+flowchart TD
+   InviteUserWithCustomRole["Invite user with custom role"]
+   CheckUser{"Check User by email id"}
+   InviteUser["fa:fa-envelope Invite Org Owner"]
+   AcceptInviteWithEmailCode["Accept Invite with code"]
+   CreateUser["Create new user"]
+   AssignRole["Assign Role to user"]
+   AssignRoleAndSendInvite["Assign Role to user"]
+   AcceptInviteWithEmailCode["Accept invite with code"]
+
+
+    subgraph User[Role Allowed: Org Owner/Super Admin/Org Manager]
+        InviteUserWithCustomRole -- POST
+    /v1/authorization/organizations/{orgId}/members --> CheckUser
+
+    CheckUser ----> |Exists|AssignRole
+    CheckUser ----> |Do not exist|CreateUser
+
+    CreateUser --> AssignRoleAndSendInvite --> InviteUser
+
+
+
+    InviteUser -.POST /v1/authentication/users/invite.-> AcceptInviteWithEmailCode
+    end
+```
+
+In order to invite a user with custom claim, below endpoint can be invoked, only org owners, super admin and org managers can use the below endpoint
+
+```bash
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations/218910290/members \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "email": "john.doe@gmail.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "role": "admin",
+  "userId": "218910290" // user id of the org owner/org manager assigning the role.
+}'
+```
+
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/POST/v1/authorization/organizations/{orgId}/members)
+</Tip>
+
+### Accept Invite for when org owner does not exist
+
+Below endpoint can be used when user is sent the invite on email
+
+```bash
+curl --request PUT \
+  --url https://dev-iam.razi.ai/v1/authentication/users/invite \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "orgId": "271296458001489512",
+  "email": "john.doe@gmail.com",
+  "verificationCode": "XSR89TU",
+  "newPassword": "Secret@slidezAB"
+}'
+```
+
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#tag/authentication/PUT/v1/authentication/users/invite)
+</Tip>

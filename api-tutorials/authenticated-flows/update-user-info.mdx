@@ -1,0 +1,35 @@
+---
+sidebar_position: 3
+title: Update User Information
+icon: pen-to-square
+iconType: solid
+---
+
+import LoggedInWarning from "/snippets/_logged-in-warning.mdx";
+
+
+<LoggedInWarning />
+
+In order to update the user information, the below endpoint can be used
+
+```bash
+curl --request PUT \
+  --url https://dev-iam.razi.ai/v1/authentication/users/__USERID__ \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "firstName": "John",
+  "lastName": "Doe",
+  "phoneNumber": "+971111111111",
+  "metadata": {
+    "key": "value"
+  }
+}'
+```
+This API call will return a 200 OK status if information is updated.
+
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#tag/authentication/PUT/v1/authentication/users/{userId})
+</Tip>
+

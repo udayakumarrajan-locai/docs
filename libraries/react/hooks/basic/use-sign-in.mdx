@@ -1,0 +1,101 @@
+---
+sidebar_position: 0
+title: useSignIn()
+---
+
+import SessionType from '/snippets/react/types/session.mdx';
+import HttpErrorCallbackType from '/snippets/react/types/http-error-callback.mdx';
+
+## Overview
+
+**useSignIn** hook is used to handle the sign-in process using email and password.
+It leverages the react-query library to manage the asynchronous operation and provides
+error handling and success callbacks.
+
+## Example Usage
+
+```typescript sign-in-component.tsx
+"use client";
+
+import { useCallback, useState } from 'react';
+
+import { HttpError, Session } from '@locai1/iam-javascript';
+import { useSignIn } from '@locai1/iam-react';
+
+export const SignInComponent = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<HttpError | Error | null>(null);
+
+  const handleSignInSuccess = useCallback((session: Session | undefined) => {
+    console.log('Sign-in successful', session);
+  }, []);
+
+  const { signIn, isLoading } = useSignIn({
+    onError: setError,
+    onSuccess: handleSignInSuccess,
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email && password) {
+      signIn({ email, password });
+    }
+  };
+
+  const isHttpError = error instanceof HttpError;
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        name="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <button type="submit" disabled={isLoading}>Sign In</button>
+      {error && !isHttpError && (
+        <p className="text-red-500 text-xs mt-1 text-center">{error.message}</p>
+      )}
+    </form>
+  );
+};
+```
+
+## Parameters
+
+<ResponseField name="onSuccess" type="(session: Session | undefined) => void" required>
+  callback function that is called when the sign-in process is successful. It receives the **Session** object as an argument.
+  <SessionType />
+</ResponseField>
+
+<ResponseField name="onError" type="HttpErrorCallback" required>
+  callback function that is called when an error occurs during the sign-in process.
+  <HttpErrorCallbackType />
+</ResponseField>
+
+## Returns
+
+<ResponseField name="signIn" type="({ email, password }) => void">
+  function that triggers the sign-in process with the provided email and password.
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the sign-in process is currently in progress.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred during the sign-in process.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error">
+  error object containing details of the error that occurred during the sign-in process.
+</ResponseField>

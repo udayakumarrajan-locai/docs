@@ -1,0 +1,69 @@
+---
+sidebar_position: 2
+title: JWKS Endpoint
+icon: arrows-rotate-reverse
+iconType: solid
+---
+
+<Note>
+  This API Should be used to introspect the JWT for the machine user to ensure the token is issued by the IAM service.
+</Note>
+
+
+The **Get User JWKs** endpoint allows you to retrieve JSON Web Keys (JWKs) used to verify the signatures of tokens issued by the authentication service.
+JWKs are a JSON-based data structure representing cryptographic keys and are commonly used in secure applications to ensure token integrity.
+
+
+To retrieve the JWKs, make a GET request to the following endpoint:
+
+```bash
+curl --request GET \
+  --url https://dev-iam.razi.ai/v1/authentication/token/jwks \
+  --header 'X-App-Name: '
+```
+
+Upon successful request, you will receive keys:
+
+```json
+{
+  "keys": [
+    {
+      "alg": "ES256",
+      "crv": "P-256",
+      "d": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",
+      "kid": "key1",
+      "kty": "EC",
+      "use": "sig",
+      "x": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",
+      "y": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+    }
+  ]
+}
+```
+## Response Fields
+
+<Check>
+
+    **keys**: An array of key objects, where each object contains the following fields:
+    - **alg**: The algorithm used with the key. In this example, `ES256` stands for the ECDSA algorithm using the P-256 curve and SHA-256 hash function.
+    - **crv**: The curve parameter for elliptic curve keys. Here, `P-256` specifies the NIST P-256 curve.
+    - **d**: The private key for elliptic curve cryptography, which should be kept secret and is used for signing operations.
+    - **kid**: The key ID, which is a unique identifier for the key.
+    - **kty**: The key type, which indicates the cryptographic algorithm family used by the key. For instance, `EC` stands for elliptic curve.
+    - **use**: The intended use of the key, such as `sig` for signature verification.
+    - **x** and **y**: The public key coordinates for elliptic curve keys, representing the X and Y coordinates on the curve.
+
+</Check>
+
+
+<Note>
+    A sample implementation of the JWKS endpoint can be found [here](https://www.npmjs.com/package/jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback).
+
+    This method is also available in the [IAM SDK 1.0.9](https://github.com/LocAI1/iam-javascript-sdk/blob/main/packages/iam-javascript/src/helpers/jwt.ts).
+</Note>
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authentication/GET/v1/authentication/token/jwks)
+</Tip>
+
+

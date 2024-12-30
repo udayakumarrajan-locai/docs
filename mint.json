@@ -1,11 +1,17 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Locai IAM  Service Docs",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/locai-light-logo.svg",
+    "light": "/logo/locai-logo.svg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/images/favicon.png",
+  "metadata": {
+    "og:title": "Locai IAM Service Docs",
+    "og:image": "/images/favicon.png",
+    "og:description": "Docs for IAM Service related modules",
+    "og:logo": "/logo/locai-logo.svg"
+  },
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -15,77 +21,261 @@
       "to": "#07C983"
     }
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
-  ],
+  "theme": "prism",
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "API Playground",
+    "arrow": true,
+    "url": "https://dev-iam.razi.ai/docs"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
+      "name": "Slack",
       "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "iconType": "solid",
+      "url": "https://locai-workspace.slack.com/archives/C07GY8L0NPK"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "Contribute",
+      "icon": "code-pull-request",
+      "iconType": "solid",
+      "url": "https://github.com/LocAI1/iam-service/pulls"
+    },
+    {
+      "name": "Feature Request / Issues",
+      "icon": "scrubber",
+      "iconType": "regular",
+      "url": "https://github.com/LocAI1/iam-service/issues"
+    }
+  ],
+  "tabs": [
+    {
+      "name": "Features",
+      "url": "/"
+    },
+    {
+      "name": "API Tutorials",
+      "url": "api-tutorials"
+    },
+    {
+      "name": "Libraries",
+      "url": "libraries"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference",
+      "openapi": "https://dev-iam.razi.ai/api-json"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "current-features",
+        "roadmap"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "API Tutorials",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "api-tutorials/getting-started",
+        "api-tutorials/email-template-setup",
+        "api-tutorials/basic-flows",
+        {
+          "group": "Unauthenticated Flows",
+          "icon": "lock-open",
+          "iconType": "solid",
+          "pages": [
+            "api-tutorials/unauthenticated-flows/sign-up-by-username-password",
+            "api-tutorials/unauthenticated-flows/sign-in-by-username-password",
+            "api-tutorials/unauthenticated-flows/forgot-password",
+            "api-tutorials/unauthenticated-flows/generate-machine-user-token"
+          ]
+        },
+        {
+          "group": "Authenticated Flows",
+          "icon": "lock",
+          "iconType": "solid",
+          "pages": [
+            "api-tutorials/authenticated-flows/verify-email",
+            "api-tutorials/authenticated-flows/get-user-info",
+            "api-tutorials/authenticated-flows/reset-password",
+            "api-tutorials/authenticated-flows/update-user-info",
+            "api-tutorials/authenticated-flows/token-introspection",
+            "api-tutorials/authenticated-flows/log-out-user",
+            {
+              "group": "Machine User",
+              "icon": "robot",
+              "pages": [
+                "api-tutorials/authenticated-flows/create-machine-user",
+                "api-tutorials/unauthenticated-flows/jwks-endpoint"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Social Media Flows",
+          "icon": "bolt",
+          "iconType": "solid",
+          "pages": [
+            "api-tutorials/social-media-flows/introduction",
+            {
+              "group": "Setup OAuth Providers",
+              "icon": "wrench",
+              "pages": [
+                "api-tutorials/social-media-flows/oauth-providers/google-idp",
+                "api-tutorials/social-media-flows/oauth-providers/azure-idp"
+              ]
+            },
+            "api-tutorials/social-media-flows/fetch-app-metadata",
+            "api-tutorials/social-media-flows/create-intent",
+            "api-tutorials/social-media-flows/validate-intent"
+          ]
+        },
+        {
+          "group": "Multi Tenancy",
+          "icon": "building",
+          "iconType": "solid",
+          "pages": [
+            "api-tutorials/multi-tenancy/introduction",
+            {
+              "group": "Invite Based Flows",
+              "icon": "user-plus",
+              "iconType": "solid",
+              "pages": [
+                "api-tutorials/multi-tenancy/invite-based/setup-new-organization",
+                "api-tutorials/multi-tenancy/invite-based/onboard-org-manager",
+                "api-tutorials/multi-tenancy/invite-based/assign-or-invite-user-with-custom-roles"
+              ]
+            }, 
+            "api-tutorials/multi-tenancy/get-user-roles",
+            "api-tutorials/multi-tenancy/introspection",
+            {
+              "group": "Organization Management",
+              "icon": "robot",
+              "iconType": "solid",
+              "pages": [
+                "api-tutorials/multi-tenancy/machine-user/introduction",
+                "api-tutorials/multi-tenancy/machine-user/get-all-organization",
+                "api-tutorials/multi-tenancy/machine-user/get-all-users",
+                
+                "api-tutorials/multi-tenancy/machine-user/get-all-users-of-organization",
+                "api-tutorials/multi-tenancy/organization-management/search-users-of-organization",
+                "api-tutorials/multi-tenancy/machine-user/add-user-to-org",
+                "api-tutorials/multi-tenancy/machine-user/delete-user-from-organization",
+                "api-tutorials/multi-tenancy/machine-user/delete-a-user",
+                "api-tutorials/multi-tenancy/organization-management/get-org-details",
+                "api-tutorials/multi-tenancy/organization-management/get-org-events",
+                "api-tutorials/multi-tenancy/organization-management/update-org-details"
+
+              ]
+            }
+          ]
+        }
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Libraries",
       "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "libraries/javascript",
+        {
+          "group": "React SDK",
+          "icon": "react",
+          "iconType": "solid",
+          "pages": [
+            "libraries/react/overview",
+            "libraries/react/quickstart",
+            {
+              "group": "Components",
+              "icon": "rectangle-code",
+              "pages": [
+                "libraries/react/components/sign-in",
+                "libraries/react/components/sign-up",
+                "libraries/react/components/forgot-password",
+                "libraries/react/components/user-details"
+              ]
+            },
+            {
+              "group": "Composite Elements",
+              "icon": "rectangles-mixed",
+              "pages": [
+                "libraries/react/composite-elements/overview",
+                {
+                  "group": "Sign In",
+                  "pages": [
+                    "libraries/react/composite-elements/sign-in-elements/sign-in-form"
+                  ]
+                },
+                {
+                  "group": "Sign Up",
+                  "pages": [
+                    "libraries/react/composite-elements/sign-up-elements/sign-up-form",
+                    "libraries/react/composite-elements/sign-up-elements/verify-form"
+                  ]
+                },
+                {
+                  "group": "Forgot Password",
+                  "pages": [
+                    "libraries/react/composite-elements/forgot-password-elements/request-code-form",
+                    "libraries/react/composite-elements/forgot-password-elements/update-password-form"
+                  ]
+                },
+                {
+                  "group": "User Details",
+                  "pages": [
+                    "libraries/react/composite-elements/user-details-elements/profile-form",
+                    "libraries/react/composite-elements/user-details-elements/security-form"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "Hooks",
+              "icon": "webhook",
+              "pages": [
+                "libraries/react/hooks/overview",
+                {
+                  "group": "Basic",
+                  "pages": [
+                    "libraries/react/hooks/basic/use-session",
+                    "libraries/react/hooks/basic/use-sign-in",
+                    "libraries/react/hooks/basic/use-sign-up",
+                    "libraries/react/hooks/basic/use-sign-out",
+                    "libraries/react/hooks/basic/use-request-forgot-password-code-by-email",
+                    "libraries/react/hooks/basic/use-update-password-with-code",
+                    "libraries/react/hooks/basic/use-verify-user-email"
+                  ]
+                },
+                {
+                  "group": "OAuth",
+                  "pages": [
+                    "libraries/react/hooks/oauth/use-app-metadata",
+                    "libraries/react/hooks/oauth/use-create-identity-provider-intent",
+                    "libraries/react/hooks/oauth/use-validate-identity-provider-intent"
+                  ]
+                },
+                {
+                  "group": "User Details",
+                  "pages": [
+                    "libraries/react/hooks/user-details/use-user-details",
+                    "libraries/react/hooks/user-details/use-update-user-profile",
+                    "libraries/react/hooks/user-details/use-update-user-password-with-current-password"
+                  ]
+                },
+                {
+                  "group": "Other",
+                  "pages": [
+                    "libraries/react/hooks/other/use-change-language"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "linkedin": "https://www.linkedin.com/company/locai",
+    "github": "https://github.com/LocAI1/iam-service"
   }
 }

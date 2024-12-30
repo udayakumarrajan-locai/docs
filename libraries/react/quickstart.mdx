@@ -1,0 +1,92 @@
+---
+sidebar_position: 0
+title: Quickstart
+---
+
+## Pre-requisites
+
+Before installing this package, make sure to follow below steps:
+<Steps>
+  <Step title="Request repository access to the Packages" >
+    Reach out to IAM team to request access to the Packages repository:
+    <TeamChannels />
+  </Step>
+  <Step title="Generate a personal access token">
+    Generate a personal access token with the following scopes:<br/><Icon icon="square-check" /> **repo**
+    <br/><Icon icon="square-check" /> **read:packages**
+  </Step>
+  <Step title="Create an .npmrc file">
+
+    Create an .npmrc file and add below code:
+    ```bash
+    @locai1:registry=https://npm.pkg.github.com
+    //npm.pkg.github.com/:_authToken=YOUR_PERSONAL_ACCESS_TOKEN
+    ```
+  </Step>
+</Steps>
+
+## Install
+
+Download the package using your preferred package manager:
+
+<CodeGroup>
+  ```bash pnpm
+  pnpm install @locai1/iam-react
+  ````
+
+  ```bash npm
+  npm install @locai1/iam-react
+  ````
+
+  ```bash yarn
+  yarn add @locai1/iam-react
+  ````
+</CodeGroup>
+
+
+## Set your environment variables
+
+To configure your application, you'll need to set the following environment variables in your `.env.local` file.
+These variables are essential for connecting to the IAM service and defining your application settings.
+
+<CodeGroup>
+  ```bash .env.local
+  NEXT_PUBLIC_IAM_BASE_URL=https://dev-iam.razi.ai
+  NEXT_PUBLIC_IAM_APP_NAME=locai
+  ````
+</CodeGroup>
+
+## Add IAM provider to your React app
+
+Integrate the IAM provider into your React application by wrapping your components with the `IamProvider`.
+This allows you to leverage IAM functionalities.
+
+Import the styles and provide configuration from environment variables.
+
+```typescript layout.tsx
+import { IamProvider } from "@locai1/iam-react";
+
+import "@locai1/iam-react/styles.css";
+
+const IAM_BASE_URL = process.env.NEXT_PUBLIC_IAM_BASE_URL;
+const IAM_APP_NAME = process.env.NEXT_PUBLIC_IAM_APP_NAME;
+
+  export default function RootLayout({
+    children,
+  }: Readonly<{
+    children: ReactNode;
+  }>) {
+    return (
+      <IamProvider
+        iamBaseUrl={IAM_BASE_URL}
+        iamAppName={IAM_APP_NAME}
+      >
+        {children}
+      </IamProvider>
+    );
+}
+```
+
+🎉 Now your setup is complete, explore the various IAM functionalities available to enhance your application's capabilities.
+
+If you encounter any issues or have questions, don't hesitate to reach out to the Platform support team.

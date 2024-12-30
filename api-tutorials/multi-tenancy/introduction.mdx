@@ -1,0 +1,26 @@
+---
+sidebar_position: 0
+title: Multi-Tenancy Architecture
+icon: users
+iconType: solid
+---
+
+
+Our IAM Service provides a robust multi-tenancy solution, allowing you to manage multiple organizations and user hierarchies efficiently.
+
+![Multi-Tenancy Overview](/images/multi-tenancy.png)
+
+## Role-Based Access Control
+
+The IAM Service implements a comprehensive role-based access control (RBAC) system with four distinct roles:
+
+1. **Super Admin**: The highest level of access, capable of managing all aspects of the product instance across all organizations.
+
+2. **Org Owner**: Possesses full control over a specific organization, including user management and role assignments.
+
+3. **Org Manager**: Manages users within assigned organizations, with the ability to handle multiple organizations simultaneously.
+
+4. **Custom Roles**: Tailored access levels defined by Org Owners or Org Managers, allowing for fine-grained permission control.
+
+This hierarchical structure ensures secure and flexible management of your multi-tenant environment, empowering you to scale your application while maintaining strict access controls.
+

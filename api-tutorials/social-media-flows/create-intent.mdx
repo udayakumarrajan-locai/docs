@@ -1,0 +1,38 @@
+---
+sidebar_position: 2
+title: Create Intent
+icon: link
+iconType: solid
+---
+
+In order to obtain the OAuth URL, we need to create an intent.
+
+```json
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authentication/idp/intents/create \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "idpId": "163840776835432705",
+  "successUrl": "https://custom.com/login/idp/success",
+  "failureUrl": "https://custom.com/login/idp/fail"
+}'
+```
+
+In the above API Endpoint, we are passing 
+1. The id of the identity provider returned in [previous step](/api-tutorials/social-media-flows/fetch-app-metadata).
+2. The success url in the client application where the user will be redirected after successful authentication.
+3. The failure url in the client application where the user will be redirected after failed authentication.
+
+The above API Endpoint returns the auth url which can be used to redirect the user to the oauth provider.
+
+```json
+{
+  "authUrl": "https://accounts.google.com/o/oauth2/v2/auth?client_id=clientID&callback=https%3A%2F%2Fzitadel.cloud%2Fidps%2Fcallback"
+}
+```
+<Tip>
+[Link to Playground](https://dev-iam.razi.ai/docs#/tag/idp-authentication/POST/v1/authentication/idp/intents/create)
+
+The `authUrl` is the url that needs to be used to redirect the user to the oauth provider.
+</Tip>

@@ -1,0 +1,43 @@
+---
+sidebar_position: 0
+title: Machine User Flow
+icon: robot
+iconType: solid
+---
+
+
+For using IAM in a multi-tenant environment, we need to create a machine user which acts as a bridge between IAM and the application.
+
+You need to make sure to register a machine user using super admin token as mentioned [here](/api-tutorials/authenticated-flows/create-machine-user).
+
+After creating a machine user for your app.
+
+You can use below endpoint to request an access token:
+
+```bash
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authentication/machine-users/access-token \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "clientId": "example-client-id",
+  "clientSecret": "zNUTk6frtcdrpEbRiOYx3lGjZpou1oRGVxt40SUj2qkBzUVh8gybTmOObmFvDPKw"
+}'
+```
+
+The above will return an access token which can be used to make requests to the API and also for authorizing service to service communication using [jwks](/api-tutorials/unauthenticated-flows/jwks-endpoint).
+```
+{
+  "token": "<JWT TOKEN>",
+  "expiresInSeconds": 43199
+}
+```
+<Tip>
+    Link to [Playground](https://dev-iam.razi.ai/docs#tag/authentication/POST/v1/authentication/machine-users/access-token)
+</Tip>
+
+
+The sequence diagram for the machine user flow is as follows:
+
+<img src="/images/machine-user-flow.png" />
+

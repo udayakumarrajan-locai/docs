@@ -1,0 +1,74 @@
+---
+sidebar_position: 0
+title: useSession()
+---
+
+import SessionType from '/snippets/react/types/session.mdx';
+import UserDetailsType from '/snippets/react/types/user-details.mdx';
+
+## Overview
+
+**useSession** hook is used to access the current session and user details from the SessionContext.
+
+## Example Usage
+
+```typescript session-component.tsx
+import { useSession } from '@locai1/iam-react';
+
+const SIGN_IN_PAGE = "/sign-in";
+
+const Header = () => {
+  const { isSignedIn, logout } = useSession();
+
+  return (
+    <header>
+      {isSignedIn && (
+        <button onClick={logout}>
+          Sign Out
+        </button>
+      )}
+      {!isSignedIn && (
+        <Link href={SIGN_IN_PAGE}>
+          Sign In
+        </Link>
+      )}
+    </header>
+  );
+};
+```
+
+## Returns
+
+<ResponseField name="session" type="Session | undefined">
+  current session object.
+  <SessionType />
+</ResponseField>
+
+<ResponseField name="logout" type="() => void">
+  function to log out the current user.
+</ResponseField>
+
+<ResponseField name="userDetails" type="UserDetails | undefined">
+  details of the currently signed-in user.
+  <UserDetailsType />
+</ResponseField>
+
+<ResponseField name="isSignedIn" type="boolean">
+  boolean indicating whether the user is signed in.
+</ResponseField>
+
+<ResponseField name="isFetched" type="boolean">
+  boolean indicating whether the user details has been fetched.
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the user details is loading.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred while fetching user details.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error | undefined">
+  error object if an error occurred while fetching user details.
+</ResponseField>

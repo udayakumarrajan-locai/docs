@@ -1,0 +1,62 @@
+---
+sidebar_position: 0
+title: useSignOut()
+---
+
+## Overview
+
+**useSignOut** hook is used to handle the sign-out process.
+It leverages the react-query library to manage the asynchronous operation and provides
+error handling.
+
+## Example Usage
+
+```typescript sign-out-component.tsx
+import { useSignOut } from '@locai1/iam-react';
+
+const Header = () => {
+  const { signOut, error } = useSignOut();
+
+  const handleSignOut = () => {
+    signOut();
+  };
+
+  return (
+    <header>
+      <button onClick={handleSignOut} disabled={isLoading}>
+        Sign Out
+      </button>
+      {error && <div>{error.message}</div>}
+    </header>
+  );
+};
+```
+
+## Parameters
+
+<ResponseField name="onSuccess" type="() => void">
+  callback function that is called when the sign-our process is completed.
+</ResponseField>
+
+<ResponseField name="onError" type="HttpErrorCallback">
+  callback function that is called when an error occurs during the sign-in process.
+  <HttpErrorCallbackType />
+</ResponseField>
+
+## Returns
+
+<ResponseField name="signOut" type="() => void">
+  function that triggers the sign-out process.
+</ResponseField>
+
+<ResponseField name="isLoading" type="boolean">
+  boolean indicating whether the sign-out process is currently in progress.
+</ResponseField>
+
+<ResponseField name="isError" type="boolean">
+  boolean indicating whether an error occurred during the sign-out process.
+</ResponseField>
+
+<ResponseField name="error" type="HttpError | Error">
+  error object if an error occurred during the sign-out process.
+</ResponseField>

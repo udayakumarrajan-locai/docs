@@ -1,0 +1,69 @@
+---
+sidebar_position: 2
+title: Get All Organizations
+icon: sitemap
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_human-machine-logged-in-warning.mdx";
+
+
+<UserTypeLoggedInWarning />
+
+
+To retrieve a list of all organizations accessible to your user, you need to make a GET request to the following endpoint:
+
+
+```bash
+curl --request GET \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'X-App-Name: '
+```
+
+## Query Parameters
+<Steps>
+
+    <Step title="page (optional, number)">
+        Specifies the page number to retrieve. Use this parameter to paginate through large sets of organizations. Defaults to 0 if not provided.
+        **Example**: ?page=2
+    </Step>
+    <Step title="pageSize (required, number)">
+     Specifies the number of organizations to return per page. This helps to control the size of the response data.
+        pageSize must not be greater than 100.
+        **Example**: ?pageSize=10
+    </Step>
+</Steps>
+Upon successful request, you will receive a paginated response similar to the below:
+
+```json
+{
+  "metadata": {
+    "total": 10
+  },
+  "organizations": [
+    {
+      "id": "1234567890",
+      "name": "Org1",
+      "status": "Active"
+    }
+  ]
+}
+```
+
+<Check>
+
+    - metadata.total: The total number of organizations available.
+
+    - organizations: A list of organization objects, each containing:
+        - id: The unique identifier of the organization.
+        - name: The name of the organization.
+        - status: The current status of the organization (e.g., Active, Inactive).
+</Check>
+
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/GET/v1/authorization/organizations)
+</Tip>
+
+

@@ -1,0 +1,95 @@
+---
+sidebar_position: 0
+title: <ProfileForm />
+---
+
+import InputFieldProps from '/snippets/react/composite-elements/input-field-props.mdx';
+import ErrorMessage from '/snippets/react/composite-elements/error-message.mdx';
+import SubmitButton from '/snippets/react/composite-elements/submit-button.mdx';
+import UserDetailsType from '/snippets/react/types/user-details.mdx';
+
+## Overview
+
+**ProfileForm** is a collection of components designed to facilitate the creation of a custom user details page.
+It provides a set of components that encapsulate the business logic for handling the user details form, allowing
+users to easily customize the layout, styles, labels, placeholders, and button texts.
+
+<Note>
+  ProfileForm should be used in protected page - user should be authenticated to access it.
+</Note>
+
+## Example Usage
+
+```typescript custom-profile-form.tsx
+import { UserDetailsElements } from '@locai1/iam-react/elements';
+
+const { ProfileForm } = UserDetailsElements;
+
+import { useSession } from '@/hooks/use-session';
+
+const CustomProfileTab = ({ userDetails }) => {
+  const { userDetails } = useSession();
+
+  return (
+    <ProfileForm.Root userDetails={userDetails}>
+      <ProfileForm.FirstNameInput
+        label="First name"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <ProfileForm.LastNameInput
+        label="Last name"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <ProfileForm.PhoneNumberInput
+        label="Phone Number"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <ProfileForm.ErrorMessage
+        className="custom-error-class"
+      />
+      <ProfileForm.SubmitButton
+        text="Update Profile"
+        className="custom-button-class"
+      />
+    </ProfileForm.Root>
+  );
+};
+```
+
+### ProfileForm.Root
+
+The root component of profile form. Encapsulates the business logic for handling user details form.
+
+#### Props
+
+<ResponseField name="children" type="ReactNode">
+  React elements to be rendered inside the form. **ProfileForm** elements should be rendered as children of **ProfileForm.Root**.
+</ResponseField>
+
+<ResponseField name="userDetails" type="UserDetails" required>
+  User details to be pre-filled in the form.
+  <UserDetailsType />
+</ResponseField>
+
+### Input Fields
+
+ProfileForm has the following exported input fields:
+
+- ProfileForm.FirstNameInput - field for entering first name.
+- ProfileForm.LastNameInput - field for entering last name.
+- ProfileForm.PhoneNumberInput - field for entering phone number.
+
+All these fields have similar props listed below:
+
+<InputFieldProps />
+
+### ProfileForm.ErrorMessage
+
+<ErrorMessage />
+
+### ProfileForm.SubmitButton
+
+<SubmitButton />

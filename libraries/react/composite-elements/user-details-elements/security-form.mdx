@@ -1,0 +1,101 @@
+---
+sidebar_position: 0
+title: <SecurityForm />
+---
+
+import InputFieldProps from '/snippets/react/composite-elements/input-field-props.mdx';
+import ErrorMessage from '/snippets/react/composite-elements/error-message.mdx';
+import SubmitButton from '/snippets/react/composite-elements/submit-button.mdx';
+
+## Overview
+
+**SecurityForm** is a collection of components designed to facilitate creation of a custom password update form.
+It provides a set of components that encapsulate the business logic for handling the password update form, allowing
+users to easily customize layout, styles, labels, placeholders, and button texts.
+
+<Note>
+  SecurityForm should be used in protected page - user should be authenticated to access it.
+</Note>
+
+<Warning>
+  After changing the users password, his session will be terminated, and he will need to log in again using the new password.
+</Warning>
+
+## Example Usage
+
+```typescript custom-security-form.tsx
+import { HttpError } from '@locai1/iam-javascript';
+import { UserDetailsElements } from '@locai1/iam-react/elements';
+
+const { SecurityForm } = UserDetailsElements;
+
+export const SecurityTab = () => {
+  const handleComplete = () => {
+    console.log('Password updated successfully');
+  };
+
+  const handleError = (error: HttpError | Error) => {
+    console.error('Update password error ', error.message);
+  };
+
+  return (
+    <SecurityForm.Root
+      onComplete={handleComplete}
+      onError={handleError}
+    >
+      <SecurityForm.CurrentPasswordInput
+        label="Current Password"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SecurityForm.NewPasswordInput
+        label="New Password"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SecurityForm.ConfirmPasswordInput
+        label="Confirm Password"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SecurityForm.ErrorMessage
+        className="custom-error-class"
+      />
+      <SecurityForm.SubmitButton
+        text="Update Password"
+        className="custom-button-class"
+      />
+    </SecurityForm.Root>
+  );
+};
+```
+
+### SecurityForm.Root
+
+The root component of security form. Encapsulates the business logic for handling security form.
+
+#### Props
+
+<ResponseField name="children" type="ReactNode">
+  React elements to be rendered inside the form. **SecurityForm** elements should be rendered as children of **SecurityForm.Root**.
+</ResponseField>
+
+### Input Fields
+
+SecurityForm has the following exported input fields:
+
+- SecurityForm.CurrentPasswordInput - field for entering current password.
+- SecurityForm.NewPasswordInput - field for entering new password.
+- SecurityForm.ConfirmPasswordInput - field for entering new password confirmation.
+
+All these fields have similar props listed below:
+
+<InputFieldProps />
+
+### SecurityForm.ErrorMessage
+
+<ErrorMessage />
+
+### SecurityForm.SubmitButton
+
+<SubmitButton />

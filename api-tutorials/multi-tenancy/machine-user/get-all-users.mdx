@@ -1,0 +1,77 @@
+---
+sidebar_position: 2
+title: Get All Users
+icon: users
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_machine-logged-in-warning.mdx";
+
+
+<UserTypeLoggedInWarning />
+
+<Note>
+  This API Will return all users for an app, if you want to get all users of an org you can refer to [Link](/api-tutorials/multi-tenancy/machine-user/get-all-users-of-organization).
+</Note>
+
+
+
+To retrieve a list of all users for a product, you need to make a GET request to the following endpoint:
+
+
+```bash
+curl --request GET \
+  --url https://dev-iam.razi.ai/v1/authorization/users \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'X-App-Name: '
+```
+
+## Query Parameters
+<Steps>
+
+    <Step title="page (optional, number)">
+        Specifies the page number to retrieve. Use this parameter to paginate through large sets of organizations. Defaults to 0 if not provided.
+        **Example**: ?page=2
+    </Step>
+    <Step title="pageSize (required, number)">
+        Specifies the number of organizations to return per page. This helps to control the size of the response data.
+        pageSize must not be greater than 100.
+        **Example**: ?pageSize=10
+    </Step>
+</Steps>
+Upon successful request, you will receive a paginated response similar to the below:
+
+```json
+{
+  "metadata": {
+    "total": 10
+  },
+  "users": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "phoneNumber": "+971111111111",
+      "email": "john.doe@gmail.com",
+      "isEmailVerified": true,
+      "isPhoneVerified": true,
+      "userState": "ACTIVE",
+      "displayName": "John Doe",
+      "id": "1234"
+    }
+  ]
+}
+```
+
+<Check>
+
+    - metadata.total: The total number of users available (Currently it shows the total records on the page).
+
+    - users: A list of users objects, with details of the user
+</Check>
+
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/GET/v1/authorization/users)
+</Tip>
+
+

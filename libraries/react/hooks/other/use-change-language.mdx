@@ -1,0 +1,18 @@
+---
+sidebar_position: 0
+title: useChangeLanguage()
+---
+
+## useChangeLanguage
+
+**useChangeLanguage** hook is used to change the application's language.
+It leverages the LanguageContext to access the language provider and provides a method to change the language.
+
+## Returns
+
+<ResponseField name="changeLanguage" type="(language: Language) => void">
+  function that triggers the language change process with the provided language code.
+```typescript Language type
+type Language = keyof typeof translations; // eg: "en" | "ar"
+```
+</ResponseField>

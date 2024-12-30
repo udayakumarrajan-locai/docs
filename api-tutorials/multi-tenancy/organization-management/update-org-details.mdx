@@ -1,0 +1,60 @@
+---
+sidebar_position: 2
+title: Update Organizations Details
+icon: wrench
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_human-machine-logged-in-warning.mdx";
+
+<UserTypeLoggedInWarning />
+
+<Warning>
+    <b>For human users</b>:
+
+    - Send a valid `Authorization` header with of type `Bearer TOKEN_VALUE` where **TOKEN_VALUE** is the token returned in the response from [Sign up](/api-tutorials/unauthenticated-flows/sign-up-by-username-password#sign-up-a-user) or [Sign in](/api-tutorials/unauthenticated-flows/sign-in-by-username-password) flow
+
+    In case your app supports cookie, you can enable request cookies as our API Automatically sets a cookie named `session-token` which is forwarded with each request to our api.
+</Warning>
+
+To update organization details, you need to make a PATCH request to the following endpoint along with the organization ID:
+
+<Info>
+
+    This endpoint is accessible to
+    - Machine Users
+    - Organization Owner
+    - Organization User Manager
+
+</Info>
+```bash
+curl --request PATCH \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations/__ORGID__ \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --data '{
+  "metadata": {
+    "key1": "value1",
+    "key2": "value2"
+  }
+}'
+```
+
+Upon successful request, you will receive a paginated response similar to the below:
+
+```json
+{
+  "message": "Organization Data Updated"
+}
+```
+
+<Check>
+    The API currently supports updating/adding the organization metadata.
+</Check>
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/PATCH/v1/authorization/organizations/{orgId})
+</Tip>
+
+

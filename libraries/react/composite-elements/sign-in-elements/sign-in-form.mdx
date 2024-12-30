@@ -1,0 +1,151 @@
+---
+sidebar_position: 0
+title: <SignInForm />
+---
+
+import ErrorMessage from '/snippets/react/composite-elements/error-message.mdx';
+import SubmitButton from '/snippets/react/composite-elements/submit-button.mdx';
+
+## Overview
+
+**SignInForm** is a collection of components designed to facilitate creation of a custom sign-in flow.
+It provides a set of components that encapsulate the business logic for handling forms, allowing users
+to easily customize layout, styles, labels, placeholders, and button texts.
+
+## Example Usage
+
+```typescript custom-sign-in-form.tsx
+import { useRouter } from 'next/navigation';
+
+import { HttpError, Session } from '@locai1/iam-javascript';
+import { SignInElements } from '@locai1/iam-react/elements';
+
+import { FORGOT_PASSWORD_PAGE } from '@/const';
+
+const { SignInForm } = SignInElements;
+
+const CustomSignInForm = () => {
+  const { push } = useRouter();
+
+  const handleComplete = (session: Session | undefined) => {
+    console.log('Sign in complete', session);
+  };
+
+  const handleError = (error: HttpError | Error) => {
+    console.error('Sign in error ', error.message);
+  };
+
+  const handleForgotPassword = () => {
+    push(FORGOT_PASSWORD_PAGE);
+  };
+
+  return (
+    <SignInForm.Root
+      onComplete={handleComplete}
+      onError={handleError}
+    >
+      <SignInForm.EmailInput
+        label="Email"
+        placeholder="Enter your email"
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SignInForm.PasswordInput
+        label="Password"
+        forgotPassword={{
+          text: "Forgot your password?",
+          onClick: handleForgotPassword,
+        }}
+        labelClassname="custom-label-class"
+        inputClassname="custom-input-class"
+      />
+      <SignInForm.ErrorMessage
+        className="custom-error-class"
+      />
+      <SignInForm.SubmitButton
+        text="Sign In"
+        className="custom-button-class"
+      />
+    </SignInForm.Root>
+  );
+};
+```
+
+## Components
+
+### SignInForm.Root
+
+The root component of sign-in form. It encapsulates business logic for handling sign-in form.
+
+#### Props
+
+<ResponseField name="children" type="ReactNode">
+  React elements to be rendered inside the form. **SignInForm** elements should be rendered as children of **SignInForm.Root**.
+</ResponseField>
+
+<ResponseField name="onComplete" type="callback" required>
+  A callback function that is called when the sign-in process is successfully completed.
+</ResponseField>
+
+<ResponseField name="onError" type="callback">
+  A callback function that is called when error happened during the sign-in process.
+</ResponseField>
+
+### SignInForm.EmailInput
+
+An email input field.
+
+#### Props
+
+<ResponseField name="label" type="string">
+  Label for the email input field. Optional, if not provided the label will not be rendered.
+</ResponseField>
+
+<ResponseField name="placeholder" type="string">
+  Placeholder for the email input field. Optional, if not provided the placeholder will not be rendered.
+</ResponseField>
+
+<ResponseField name="labelClassname" type="string">
+  Custom class name for the email label.
+</ResponseField>
+
+<ResponseField name="inputClassname" type="string">
+  Custom class name for the email input.
+</ResponseField>
+
+### SignInForm.PasswordInput
+
+Password input field with an optional "forgot password" link.
+
+#### Props
+
+<ResponseField name="label" type="string">
+  Label for the password input field. Optional, if not provided the label will not be rendered.
+</ResponseField>
+
+<ResponseField name="labelClassname" type="string">
+  Custom class name for the password label.
+</ResponseField>
+
+<ResponseField name="labelClassname" type="string">
+  Custom class name for the email input.
+</ResponseField>
+
+<ResponseField name="forgotPassword" type="object">
+  An object containing the text and onClick handler for the "forgot password" link, if not provided the link will not be rendered.
+
+```typescript forgotPassword
+forgotPassword?: {
+  text: string;
+  onClick: () => void;
+};
+```
+</ResponseField>
+
+### SignInForm.ErrorMessage
+
+<ErrorMessage />
+
+### SignInForm.SubmitButton
+
+<SubmitButton />

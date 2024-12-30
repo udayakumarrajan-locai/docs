@@ -1,0 +1,60 @@
+---
+sidebar_position: 2
+title: Add User to Organization
+icon: plus
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_role-based-human-machine-logged-in-warning.mdx";
+
+
+<UserTypeLoggedInWarning />
+
+
+To add a user to an organization, you need to make a POST request to the following endpoint:
+
+## Headers
+<Steps>
+
+    <Step title="x-iam-orgid">
+        Specify the Organization Id here.
+        **Example**: 281185056586736799
+    </Step>
+</Steps>
+<Steps>
+
+    <Step title="roles">
+        <Note>The roles should be one of the roles defined when organization was [created](/api-tutorials/multi-tenancy/invite-based/setup-new-organization).</Note>
+        Specify the role/roles of user.
+        **Example**: ["admin"]
+    </Step>
+</Steps>
+
+```bash
+curl --request POST \
+  --url https://dev-iam.razi.ai/v1/authorization/organizations/users/21892002 \
+  --header 'Authorization: Bearer YOUR_SECRET_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --header 'X-App-Name: ' \
+  --header 'X-Iam-Orgid: ' \
+  --data '{
+  "roles": [
+    "admin"
+  ]
+}'
+```
+
+Upon successful request, the user will be deleted from the organization and the response will be similar to the below:
+
+```json
+{
+  "message": "User 281435913177801305 added to organization 281185056586736799"
+}
+```
+
+
+<Tip>
+    [Link to Playground](https://dev-iam.razi.ai/docs#tag/authorization/POST/v1/authorization/organizations/users/{userId})
+</Tip>
+
+

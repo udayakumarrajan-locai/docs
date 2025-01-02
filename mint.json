@@ -22,11 +22,6 @@
     }
   },
   "theme": "prism",
-  "topbarCtaButton": {
-    "name": "API Playground",
-    "arrow": true,
-    "url": "https://iam.platform.dev.ai71services.ai/docs"
-  },
   "anchors": [
     {
       "name": "Slack",

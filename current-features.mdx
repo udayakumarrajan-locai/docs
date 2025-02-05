@@ -2,6 +2,9 @@
 title: Current Feature List
 icon: list-timeline
 ---
+
+import GroupManagement from "/snippets/group-management.mdx";
+
 IAM system is designed to provide secure, scalable, and user-friendly access management for modern applications.
 It includes a comprehensive set of features such as user and group management, multi-factor authentication,
 session control, and protocol support for seamless integrations. Additional capabilities like multi-tenancy,
@@ -126,7 +129,7 @@ our IAM solution empowers developers to build secure, user-centric applications 
             <li>Allow each tenant to define its own roles and permissions</li>
         </div>
     </Accordion>
-    <Accordion title="User and Group Management" icon="people-group">
+    <Accordion title="User Management" icon="people-group">
         <b>Tenant-Specific User Pools</b>
         <div style={{margin: '1rem'}}>
             <li>Maintain separate user directories for each tenant</li>
@@ -158,6 +161,11 @@ our IAM solution empowers developers to build secure, user-centric applications 
             <li> Prevent simultaneous logins from different devices for sensitive roles or actions.</li>
         </div>
     </Accordion>
+
+    <Accordion title="Group Management" icon="people-group">
+        <GroupManagement />
+    </Accordion>
+
     <Accordion title="Notification Support" icon="bell">
         <b>Email Notifications</b>
         <div style={{margin: '1rem'}}>

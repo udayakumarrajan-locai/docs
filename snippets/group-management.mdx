@@ -1,0 +1,132 @@
+**Organization Groups**
+
+Organization Groups, a feature designed to enhance the structure and management of users within an organization or tenant. Organization Groups allow users to be categorized into different sections, each referred to as a group.
+
+Each group can have its own custom roles, permissions, and designated Group Admin(s). This feature introduces the concept of sub-organizations, enabling organizations to assign members to specific groups and define tailored permissions for each group, ensuring a more granular and flexible access control system.
+
+### Functional Details
+
+**Feature Workflow**
+
+The IAM service provides robust functionality for creating and managing organizations or tenants. These organizations serve as central entities where users can be invited to join and participate. Once part of an organization, users are assigned specific roles and permissions, which determine their level of access to the organization's resources. These roles and permissions are integral to maintaining a secure and well-structured access control system, ensuring that users can only interact with the resources relevant to their responsibilities.
+
+Furthermore, Organization Groups support the assignment of Group Admins, who are entrusted with the responsibility of managing the group’s members and their respective roles. This decentralization of administrative tasks empowers organizations to distribute responsibilities effectively, particularly in larger, more complex environments. By allowing distinct groups to operate independently while still adhering to the broader organization's governance, this feature provides a scalable solution for managing diverse teams and their unique needs.
+
+### Hierarchy Flow
+
+```mermaid
+flowchart TD
+ subgraph Permissions["Permissions"]
+    direction LR
+        note1["Super Admin: Full Control"]
+        note2["Org Admin: Organization-level Control"]
+        note3["Group Admin: Group-level Control"]
+  end
+    SA["Super Admin"] --> O["Organization"] & GA["Group Admin"] & M["Members"]
+    O --> OA["Organization Admin"]
+    OA --> G["Group"] & GA & M
+    G --> GA
+    GA --> M
+    style SA fill:#f9f,stroke:#333
+    style O fill:#fcc,stroke:#333
+    style GA fill:#fcf,stroke:#333
+    style M fill:#ccc,stroke:#333
+    style OA fill:#cfc,stroke:#333
+    style G fill:#ccf,stroke:#333
+
+```
+
+### Hierarchy Diagram
+
+```mermaid
+graph TD
+    SA["Super Admin"]
+    O1["Organization 1"]
+    O2["Organization 2"]
+    OA1["Org Admin 1"]
+    OA2["Org Admin 2"]
+    G1O1["Group 1 (Org 1)"]
+    G2O1["Group 2 (Org 1)"]
+    G1O2["Group 1 (Org 2)"]
+    G2O2["Group 2 (Org 2)"]
+    GA1O1["Group Admin 1"]
+    GA2O1["Group Admin 2"]
+    GA1O2["Group Admin 1"]
+    GA2O2["Group Admin 2"]
+    M1G1O1["Member 1"]
+    M2G1O1["Member 2"]
+    M1G2O1["Member 1"]
+    M2G2O1["Member 2"]
+    M1G1O2["Member 1"]
+    M2G1O2["Member 2"]
+    M1G2O2["Member 1"]
+    M2G2O2["Member 2"]
+
+    SA --> O1
+    SA --> O2
+    O1 --> OA1
+    O2 --> OA2
+    OA1 --> G1O1
+    OA1 --> G2O1
+    OA2 --> G1O2
+    OA2 --> G2O2
+    G1O1 --> GA1O1
+    G2O1 --> GA2O1
+    G1O2 --> GA1O2
+    G2O2 --> GA2O2
+    GA1O1 --> M1G1O1
+    GA1O1 --> M2G1O1
+    GA2O1 --> M1G2O1
+    GA2O1 --> M2G2O1
+    GA1O2 --> M1G1O2
+    GA1O2 --> M2G1O2
+    GA2O2 --> M1G2O2
+    GA2O2 --> M2G2O2
+
+    classDef superAdmin fill:#ADD8E6
+    classDef org fill:#FFFACD
+    classDef orgAdmin fill:#ADD8E6
+    classDef group fill:#90EE90
+    classDef groupAdmin fill:#FFB6C1
+    classDef member fill:#D3D3D3
+
+    class SA superAdmin
+    class O1,O2 org
+    class OA1,OA2 orgAdmin
+    class G1O1,G2O1,G1O2,G2O2 group
+    class GA1O1,GA2O1,GA1O2,GA2O2 groupAdmin
+    class M1G1O1,M2G1O1,M1G2O1,M2G2O1,M1G1O2,M2G1O2,M1G2O2,M2G2O2 member
+```
+
+- **Super Admin** is at the top level.
+- **Organizations** under the Super Admin, each with its own Organization Admin.
+- **Groups** within each organization.
+- **Group Admins** managing individual group members.
+- **Group Members** at the final level, managed by Group Admins, Org Admins, and Super Admin.
+
+### Technical Details
+
+**Architecture**
+
+The architecture of Organization Groups is built on a modular design, leveraging the core IAM service for user and role management. The Group Management Module acts as an extension, allowing organizations to define and manage sub-entities (groups) with their own custom roles and permissions.
+
+**Key Components**
+
+- **IAM Service**: Handles the creation and management of organizations, users, roles, and permissions.
+- **Group Management Module**: Responsible for creating and managing Organization Groups, assigning roles, and defining group-specific permissions.
+- **Group Admin Interface**: Provides tools for Group Admins to manage members and permissions within their group.
+- **Database Layer**: Stores information about organizations, groups, members, roles, and permissions.
+- **API Layer**: Exposes endpoints for creating and managing groups, assigning roles, and retrieving group details.
+
+#### Data Flow
+
+1. Group creation.
+2. Setting and enforcing group-specific roles and permissions.
+3. Assigning users to groups.
+4. Administering group members via the Group Admin interface.
+
+**Group Management**
+<img src="/images/group_management.png" title={"Group Management"}/>
+
+**Group Admin Flow**
+<img src="/images/group_admin_flow.png" />

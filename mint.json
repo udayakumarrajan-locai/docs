@@ -51,6 +51,14 @@
       "pages": [
         "introduction",
         "current-features",
+        {
+          "group": "Application Features",
+          "icon": "rocket",
+          "iconType": "solid",
+          "pages": [
+            "api-tutorials/application-features/predefined-app-roles"
+          ]
+        },
         "roadmap"
       ]
     },

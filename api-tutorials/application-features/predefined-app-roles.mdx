@@ -1,0 +1,49 @@
+---
+sidebar_position: 2
+title: Predefined Application Roles
+icon: globe
+iconType: solid
+---
+
+import UserTypeLoggedInWarning from "/snippets/_role-based-human-machine-logged-in-warning.mdx";
+
+
+<UserTypeLoggedInWarning />
+
+
+## Introducing Application-wide Predefined Roles
+
+Predefined roles are global roles created at the application level, accessible to all existing and newly onboarded organizations.
+
+### Assigning Predefined Roles
+Any user invited or added to an organization can be assigned a predefined role that is defined at the application level. Only **super admins** and **machine users** have access to the APIs associated with predefined roles.
+
+### Managing Predefined Roles
+A **super admin** can:
+- Add a list of predefined roles along with their associated permissions, making them available across all organizations.
+- Assign these roles to users within an organization.
+- Delete predefined roles, which will remove them from all existing organizations and prevent their use in new organizations.
+
+### Impact of Deleting a Predefined Role
+If a global predefined role is deleted:
+- All users assigned to that role will lose their association with it.
+- Any permissions granted through that role will be revoked.
+
+### Role Naming Convention
+Predefined roles follow a specific naming convention. They must start with:
+**`global:*`**
+Any role starting with `global:` is considered a predefined global role and is available across all organizations.
+
+
+> **Note:** While creating a predefined role, do not manually add `global:` to the role name. It will be added automatically for all predefined roles.
+
+
+
+
+
+
+<Tip>
+    [Link to Playground](https://iam.platform.dev.ai71services.ai/docs#tag/authorization/POST/v1/authorization/predefined-roles)
+</Tip>
+
+

@@ -1,0 +1,84 @@
+.prose :where(h2):not(:where([class~=not-prose],[class~=not-prose] *)) {
+    color: var(--tw-prose-headings);
+    font-weight: 700;
+    font-size: 2em;
+    margin-top: 2em;
+    margin-bottom: .6666666666666666em;
+    line-height: 1.3333333
+}
+
+p {
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+li {
+    font-size: 1.1em;
+}
+
+.text-base {
+    font-size: 1.3rem;
+}
+.font-normal {
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+h5 {
+    font-size: 1.4rem;
+}
+
+
+div {
+    font-size: 1.1rem;
+}
+
+.text-sm {
+    font-size: 1rem;
+    line-height: 1.25rem;
+}
+
+.language-plaintext {
+    font-size: 0.89rem;
+}
+
+.language-bash {
+    font-size: 0.89rem;
+}
+
+.language-python {
+    font-size: 0.89rem;
+}
+
+.language-typescript {
+    font-size: 0.89rem;
+}
+
+@media (min-width: 640px) {
+    .sm\:flex {
+        display: none;
+    ;
+    }
+}
+
+
+
+#r5 {
+    font-family: inherit;
+    font-size: 16px;
+    fill: #333;
+}
+
+.language-sql {
+    font-size: 0.89rem;
+}
+
+.language-json {
+    font-size: 0.89rem;
+}
+
+.text-gray-900 {
+    color: rgb(var(--gray-900));
+    font-size: 1rem;
+}
+

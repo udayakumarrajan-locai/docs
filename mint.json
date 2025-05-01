@@ -1,24 +1,28 @@
+
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Locai IAM  Service Docs",
   "logo": {
-    "dark": "/logo/locai-light-logo.svg",
-    "light": "/logo/locai-logo.svg"
+    "dark": "/logo/ai71-logo-dark.svg",
+    "light": "/logo/ai71-logo.svg"
   },
   "favicon": "/images/favicon.png",
+  "font" : {
+    "family" : "Darker Grotesque"
+  },
   "metadata": {
     "og:title": "Locai IAM Service Docs",
     "og:image": "/images/favicon.png",
     "og:description": "Docs for IAM Service related modules",
-    "og:logo": "/logo/locai-logo.svg"
+    "og:logo": "/logo/ai71-logo.svg"
   },
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#2392eb",
+    "light": "#3295e7",
+    "dark": "#1b8ae4",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#2392eb",
+      "to": "#1b8ae4"
     }
   },
   "theme": "prism",
